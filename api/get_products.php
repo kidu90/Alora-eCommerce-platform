@@ -63,6 +63,37 @@ function getProductById($id)
     }
 }
 
+function getProductsForCards()
+{
+    global $conn;
+
+    try {
+        // Select only the required fields for product cards
+        $sql = "SELECT productid, name, price, image_url FROM products";
+        $result = $conn->query($sql);
+
+        if (!$result) {
+            throw new Exception("Query failed: " . $conn->error);
+        }
+
+        $products = [];
+        while ($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+
+        return $products;
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode([
+            "status" => "error",
+            "message" => "Failed to fetch products for cards",
+            "error" => $e->getMessage()
+        ]);
+        exit();
+    }
+}
+
+
 header('Content-Type: application/json'); // Set the content type to JSON
 
 if (isset($_GET['id'])) {

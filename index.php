@@ -13,6 +13,9 @@
                 extend: {
                     fontFamily: {
                         sans: ['Cardo', 'sans-serif'],
+                    },
+                    backgroundcolor: {
+                        'gray_2': '#BFBFBF',
                     }
                 }
             }
@@ -20,7 +23,7 @@
     </script>
 </head>
 
-<body class="font-sans ">
+<body class="font-sans  bg-gray_2">
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-40  bg-gray-200 bg-opacity-20 backdrop-blur-sm">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,7 +65,7 @@
 
     <!-- Hero Section -->
     <section class="relative h-screen">
-        <img src="images/new.avif" alt="Beauty close-up" class="object-cover w-full h-full">
+        <img src="images/heroImage.webp" alt="Beauty close-up" class="object-cover w-full h-full">
         <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-black/60"></div>
         <div class="absolute inset-x-0 bottom-10 left-10 flex flex-col justify-center items-start text-white">
             <h1 class="text-3xl font-light ml-2">Let Your</h1>
