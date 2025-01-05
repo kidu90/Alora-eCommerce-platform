@@ -3,7 +3,7 @@
 
 function fetchProducts($page = 1, $limit = 10)
 {
-    $url = 'http://localhost/Alora/api/get_products.php'; // The path to the API endpoint
+    $url = 'http://localhost/Alora/api/Products/get_products.php'; // The path to the API endpoint
 
     // Add pagination parameters to the API request
     $url .= '?page=' . $page . '&limit=' . $limit;
@@ -44,4 +44,45 @@ function fetchProducts($page = 1, $limit = 10)
             "message" => "No products found or API error"
         ];
     }
+}
+
+function startSession()
+{
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+}
+
+function isAuthenticated($adminRequired = false)
+{
+
+    header('Content-Type: application/json');
+    startSession();
+
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401); // Unauthorized
+        echo json_encode([
+            "status" => "error",
+            "message" => "Unauthorized access. Please log in."
+        ]);
+        exit; // Stop further execution
+    }
+
+    // Check if admin access is required
+    if ($adminRequired && $_SESSION['ROLE'] !== 'admin') {
+        http_response_code(403); // Forbidden
+        echo json_encode([
+            "status" => "error",
+            "message" => "Admin access required."
+        ]);
+        exit; // Stop further execution
+    }
+
+    // Optional: Return user session data if needed
+    return [
+        "user_id" => $_SESSION['user_id'],
+        "first_name" => $_SESSION['first_name'],
+        "email" => $_SESSION['email'],
+        "role" => $_SESSION['ROLE']
+    ];
 }

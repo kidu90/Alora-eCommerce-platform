@@ -1,17 +1,19 @@
 <?php
-require_once '../dbconnection.php';
+require_once '../../dbconnection.php';
+require_once '../../functions.php';
 
-function updateProduct($productid, $name, $description, $price, $category_id, $stock_quantity, $ingredients, $usage_tips, $image_url)
+isAuthenticated(true);
+
+function createProduct($name, $description, $price, $category_id, $stock_quantity, $ingredients, $usage_tips, $image_url)
 {
     global $conn;
 
     try {
-        $stmt = $conn->prepare("UPDATE products 
-                               SET name = ?, description = ?, price = ?, category_id = ?, stock_quantity = ?, ingredients = ?, usage_tips = ?, image_url = ? 
-                               WHERE product_id = ?");
+        $stmt = $conn->prepare("INSERT INTO products (name, description, price, category_id, stock_quantity, ingredients, usage_tips, image_url) 
+                               VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
         $stmt->bind_param(
-            "ssdiisssi",
+            "ssdiisss",
             $name,
             $description,
             $price,
@@ -19,21 +21,17 @@ function updateProduct($productid, $name, $description, $price, $category_id, $s
             $stock_quantity,
             $ingredients,
             $usage_tips,
-            $image_url,
-            $productid
+            $image_url
         );
 
         if ($stmt->execute()) {
-            if ($stmt->affected_rows > 0) {
-                return [
-                    "status" => "success",
-                    "message" => "Product updated successfully"
-                ];
-            } else {
-                throw new Exception("No rows affected. Product may not exist or data may be unchanged.");
-            }
+            return [
+                "status" => "success",
+                "message" => "Product created successfully",
+                "product_id" => $stmt->insert_id
+            ];
         } else {
-            throw new Exception("Failed to update product: " . $stmt->error);
+            throw new Exception("Failed to create product: " . $stmt->error);
         }
     } catch (Exception $e) {
         http_response_code(500);
@@ -54,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inputData = json_decode(file_get_contents('php://input'), true);
 
     // Get all required fields from input
-    $productid = $inputData['productid'] ?? 0;
     $name = $inputData['name'] ?? '';
     $description = $inputData['description'] ?? '';
     $price = $inputData['price'] ?? 0;
@@ -67,9 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate input data
     $errors = [];
 
-    if ($productid <= 0) {
-        $errors[] = "Valid product ID is required";
-    }
     if (empty($name)) {
         $errors[] = "Product name is required";
     }
@@ -96,9 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Call the function to update the product
-    $response = updateProduct(
-        $productid,
+    // Call the function to create a new product
+    $response = createProduct(
         $name,
         $description,
         $price,

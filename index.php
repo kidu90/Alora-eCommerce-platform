@@ -16,46 +16,9 @@
 
 <body class="font-sans  bg-primary">
     <!-- Navigation -->
-    <nav>
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0">
-                    <a href="#" class="text-black text-2xl font-bold font-secondary">Aurora</a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-center space-x-8">
-                        <a href="#" class="text-black hover:text-gray-200">About</a>
-                        <a href="#" class="text-black hover:text-gray-200">Shop</a>
-                        <a href="#" class="text-black hover:text-gray-200">Contact</a>
-                        <a href="#" class="text-black hover:text-gray-200">Subscription</a>
-
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <!-- Account Icon -->
-                    <a href="#" class="text-black">
-                        <span class="sr-only">Account</span>
-                        <img src="images/person.svg" alt="Account" class="h-6 w-6">
-                    </a>
-
-                    <!-- Cart Icon -->
-                    <a href="#">
-                        <span class="sr-only">Cart</span>
-                        <img src="images/cart-3-svgrepo-com.svg" alt="Cart" class="h-6 w-6">
-                    </a>
-
-                    <!-- Search Icon -->
-                    <a href="#">
-                        <span class="sr-only">Search</span>
-                        <img src="images/search-svgrepo-com.svg" alt="Search" class="h-6 w-6">
-                    </a>
-
-
-                </div>
-            </div>
-        </div>
-        </div>
-    </nav>
+    <?php
+    require 'views/partials/navbar.php'
+    ?>
 
     <!-- Hero Section -->
     <section class="relative h-screen">
@@ -95,7 +58,6 @@
         <div class="container mx-auto px-4 py-16">
             <h2 class="text-5xl font-bold mb-20 text-center">SHOP BY CATEGORY</h2>
             <div class="grid grid-cols-3 gap-6">
-                <!-- Lips Category -->
                 <?php
                 $categories = [
                     [
@@ -175,62 +137,9 @@
     </section>
 
     <!-- Footer Section -->
-
-    <footer class="bg-white text-black py-8">
-        <div class="container mx-auto px-8 py-12">
-            <div class="flex flex-wrap justify-between">
-                <div class="w-full md:w-1/4 mb-4 md:mb-0">
-                    <h2 class="text-3xl font-bold font-secondary mb-4">Alora</h2>
-                    <div class="flex space-x-4">
-                        <a href="#" class="hover:text-gray-300">
-                            <image src="images/facebook.svg" alt="Facebook Icon" class="h-5 w-5">
-                        </a>
-                        <a href="#" class="hover:text-gray-300">
-                            <image src="images/instagram.svg" alt="Instagram Icon" class="h-5 w-5">
-                        </a>
-                        <a href="#" class="hover:text-gray-300">
-                            <image src="images/twitter.svg" alt="Twitter Icon" class="h-5 w-5">
-                        </a>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/4 mb-4 md:mb-0">
-                    <h3 class="text-lg font-semibold mb-2">Company</h3>
-                    <ul>
-                        <li><a href="#" class="hover:text-gray-300">Shop</a></li>
-                        <li><a href="#" class="hover:text-gray-300">About us</a></li>
-                        <li><a href="#" class="hover:text-gray-300">Privacy and Policy</a></li>
-                    </ul>
-                </div>
-                <div class="w-full md:w-1/4 mb-4 md:mb-0">
-                    <h3 class="text-lg font-semibold mb-2">Information</h3>
-                    <ul>
-                        <li><a href="#" class="hover:text-gray-300">Home</a></li>
-                        <li><a href="#" class="hover:text-gray-300">FAQ</a></li>
-                        <li><a href="#" class="hover:text-gray-300">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="w-full md:w-1/4 mb-4 md:mb-0">
-                    <h3 class="text-lg font-semibold mb-2">Information</h3>
-                    <ul>
-                        <li><a href="#" class="hover:text-gray-300">Home</a></li>
-                        <li><a href="#" class="hover:text-gray-300">FAQ</a></li>
-                        <li><a href="#" class="hover:text-gray-300">Contact</a></li>
-                    </ul>
-                </div>
-
-            </div>
-            <div class="border-t border-gray-300 mt-8 pt-8 text-sm text-center">
-                <p>&copy; 2025 Alora. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-
-
-
-
-
-
+    <?php
+    require 'views/partials/footer.php'
+    ?>
 
 </body>
 
