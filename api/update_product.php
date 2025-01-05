@@ -1,72 +1,113 @@
 <?php
-
-// Include database connection file (adjust path if needed)
 require_once '../dbconnection.php';
 
-// Define the updateProduct function
-function updateProduct($data)
+function updateProduct($productid, $name, $description, $price, $category_id, $stock_quantity, $ingredients, $usage_tips, $image_url)
 {
-    global $conn; // Use the global connection object from dbconnection.php
+    global $conn;
 
     try {
-        // Check if the necessary data is provided
-        if (!isset($data['productid'], $data['name'], $data['description'], $data['price'], $data['brand'], $data['stock_quantity'])) {
-            throw new Exception("Missing required fields");
+        $stmt = $conn->prepare("UPDATE products 
+                               SET name = ?, description = ?, price = ?, category_id = ?, stock_quantity = ?, ingredients = ?, usage_tips = ?, image_url = ? 
+                               WHERE product_id = ?");
+
+        $stmt->bind_param(
+            "ssdiisssi",
+            $name,
+            $description,
+            $price,
+            $category_id,
+            $stock_quantity,
+            $ingredients,
+            $usage_tips,
+            $image_url,
+            $productid
+        );
+
+        if ($stmt->execute()) {
+            if ($stmt->affected_rows > 0) {
+                return [
+                    "status" => "success",
+                    "message" => "Product updated successfully"
+                ];
+            } else {
+                throw new Exception("No rows affected. Product may not exist or data may be unchanged.");
+            }
+        } else {
+            throw new Exception("Failed to update product: " . $stmt->error);
         }
-
-        // Prepare the SQL statement to update a product by ID
-        $stmt = $conn->prepare("UPDATE products SET name = ?, description = ?, price = ?, brand = ?, stock_quantity = ? WHERE productid = ?");
-
-        // Bind parameters to the prepared statement
-        $stmt->bind_param("sssdis", $data['name'], $data['description'], $data['price'], $data['brand'], $data['stock_quantity'], $data['productid']);
-
-        // Execute the statement
-        $stmt->execute();
-
-        // Check if any row was affected
-        if ($stmt->affected_rows === 0) {
-            throw new Exception("No rows affected. Product may not exist or data may be unchanged.");
-        }
-
-        // Return success message
-        return [
-            "status" => "success",
-            "message" => "Product updated successfully"
-        ];
     } catch (Exception $e) {
-        // Handle errors
+        http_response_code(500);
+        return [
+            "status" => "error",
+            "message" => $e->getMessage()
+        ];
+    } finally {
+        if (isset($stmt)) {
+            $stmt->close();
+        }
+    }
+}
+
+header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $inputData = json_decode(file_get_contents('php://input'), true);
+
+    // Get all required fields from input
+    $productid = $inputData['productid'] ?? 0;
+    $name = $inputData['name'] ?? '';
+    $description = $inputData['description'] ?? '';
+    $price = $inputData['price'] ?? 0;
+    $category_id = $inputData['category_id'] ?? 0;
+    $stock_quantity = $inputData['stock_quantity'] ?? 0;
+    $ingredients = $inputData['ingredients'] ?? '';
+    $usage_tips = $inputData['usage_tips'] ?? '';
+    $image_url = $inputData['image_url'] ?? '';
+
+    // Validate input data
+    $errors = [];
+
+    if ($productid <= 0) {
+        $errors[] = "Valid product ID is required";
+    }
+    if (empty($name)) {
+        $errors[] = "Product name is required";
+    }
+    if (empty($description)) {
+        $errors[] = "Product description is required";
+    }
+    if ($price <= 0) {
+        $errors[] = "Price must be greater than 0";
+    }
+    if ($category_id <= 0) {
+        $errors[] = "Valid category ID is required";
+    }
+    if ($stock_quantity < 0) {
+        $errors[] = "Stock quantity cannot be negative";
+    }
+
+    if (!empty($errors)) {
         http_response_code(400);
         echo json_encode([
             "status" => "error",
-            "message" => "Failed to update product",
-            "error" => $e->getMessage()
+            "message" => "Invalid input data",
+            "errors" => $errors
         ]);
         exit();
     }
+
+    // Call the function to update the product
+    $response = updateProduct(
+        $productid,
+        $name,
+        $description,
+        $price,
+        $category_id,
+        $stock_quantity,
+        $ingredients,
+        $usage_tips,
+        $image_url
+    );
+
+    echo json_encode($response);
 }
-
-
-header('Content-Type: application/json');
-// Check if the request method is POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get the raw JSON input from the request
-    $data = json_decode(file_get_contents('php://input'), true);
-
-    // Check if the productid is provided in the input data
-    if (isset($data['productid'])) {
-        // Call the updateProduct function with the provided data
-        $response = updateProduct($data);
-        // Output the response as JSON
-        echo json_encode($response);
-    } else {
-        // If productid is missing, return an error response
-        http_response_code(400);
-        echo json_encode([
-            "status" => "error",
-            "message" => "Invalid input: productid is required"
-        ]);
-    }
-}
-
-// Close the database connection
-$conn->close();
