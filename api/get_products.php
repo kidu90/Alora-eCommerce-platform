@@ -3,11 +3,15 @@ require_once '../dbconnection.php';
 
 function getAllProducts()
 {
-
-    global $conn; // Use the global connection object from dbconnection.php
+    global $conn;
 
     try {
-        $sql = "SELECT productid, name, description, price, brand, stock_quantity, image_url FROM products";
+        $sql = "SELECT p.product_id, p.name, p.description, p.price, p.category_id, 
+                       p.stock_quantity, p.ingredients, p.usage_tips, p.image_url, 
+                       p.created_at, c.name as category_name
+                FROM products p
+                LEFT JOIN categories c ON p.category_id = c.category_id";
+
         $result = $conn->query($sql);
 
         if (!$result) {
@@ -20,15 +24,17 @@ function getAllProducts()
             $products[] = $row;
         }
 
-        return $products;
+        return [
+            "status" => "success",
+            "data" => $products
+        ];
     } catch (Exception $e) {
         http_response_code(500);
-        echo json_encode([
+        return [
             "status" => "error",
             "message" => "Failed to fetch products",
             "error" => $e->getMessage()
-        ]);
-        exit();
+        ];
     }
 }
 
@@ -37,44 +43,69 @@ function getProductById($id)
     global $conn;
 
     try {
-        $stmt = $conn->prepare("SELECT productid, name, description, price, brand, stock_quantity, image_url FROM products WHERE productid = ?");
+        $stmt = $conn->prepare(
+            "SELECT p.product_id, p.name, p.description, p.price, p.category_id, 
+                    p.stock_quantity, p.ingredients, p.usage_tips, p.image_url, 
+                    p.created_at, c.name as category_name
+             FROM products p
+             LEFT JOIN categories c ON p.category_id = c.category_id
+             WHERE p.product_id = ?"
+        );
+
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $conn->error);
+        }
+
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+
+        if (!$stmt->execute()) {
+            throw new Exception("Execute failed: " . $stmt->error);
+        }
 
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            // Fetch the product data
             $product = $result->fetch_assoc();
+            return [
+                "status" => "success",
+                "data" => $product
+            ];
         } else {
             throw new Exception("Product with ID $id not found.");
         }
-
-        $stmt->close();
-
-        return $product;
     } catch (Exception $e) {
-        http_response_code(404);
-        echo json_encode([
+        http_response_code($e->getMessage() === "Product with ID $id not found." ? 404 : 500);
+        return [
             "status" => "error",
             "message" => $e->getMessage()
-        ]);
-        exit();
+        ];
+    } finally {
+        if (isset($stmt)) {
+            $stmt->close();
+        }
     }
 }
 
-
-
-
 header('Content-Type: application/json');
 
+// Sanitize input if ID is provided
 if (isset($_GET['id'])) {
+    $productId = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+
+    if ($productId === false) {
+        http_response_code(400);
+        echo json_encode([
+            "status" => "error",
+            "message" => "Invalid product ID provided"
+        ]);
+        exit();
+    }
+
     // Fetch detailed product data by ID
-    $productId = intval($_GET['id']);
-    $product = getProductById($productId);
-    echo json_encode($product);
+    $response = getProductById($productId);
 } else {
     // Default: fetch all product details
-    $allProducts = getAllProducts();
-    echo json_encode($allProducts);
+    $response = getAllProducts();
 }
+
+echo json_encode($response);

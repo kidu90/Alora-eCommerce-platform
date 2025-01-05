@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "alora_db";
+$dbname = "alora_database";
 
 try {
     $conn = new mysqli($servername, $username, $password, $dbname);

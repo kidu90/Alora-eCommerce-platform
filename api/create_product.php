@@ -1,17 +1,27 @@
 <?php
 require_once '../dbconnection.php';
 
-function createProduct($name, $description, $price, $brand, $stock_quantity)
+function createProduct($name, $description, $price, $category_id, $stock_quantity, $ingredients, $usage_tips, $image_url)
 {
     global $conn;
 
     try {
-        $stmt = $conn->prepare("INSERT INTO products (name, description, price, brand, stock_quantity) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO products (name, description, price, category_id, stock_quantity, ingredients, usage_tips, image_url) 
+                               VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $stmt->bind_param("ssdsi", $name, $description, $price, $brand, $stock_quantity);
+        $stmt->bind_param(
+            "ssdiisss",
+            $name,
+            $description,
+            $price,
+            $category_id,
+            $stock_quantity,
+            $ingredients,
+            $usage_tips,
+            $image_url
+        );
 
         if ($stmt->execute()) {
-            // Return the ID of the newly created product
             return [
                 "status" => "success",
                 "message" => "Product created successfully",
@@ -35,27 +45,59 @@ function createProduct($name, $description, $price, $brand, $stock_quantity)
 
 header('Content-Type: application/json');
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inputData = json_decode(file_get_contents('php://input'), true);
 
+    // Get all required fields from input
     $name = $inputData['name'] ?? '';
     $description = $inputData['description'] ?? '';
     $price = $inputData['price'] ?? 0;
-    $brand = $inputData['brand'] ?? '';
+    $category_id = $inputData['category_id'] ?? 0;
     $stock_quantity = $inputData['stock_quantity'] ?? 0;
+    $ingredients = $inputData['ingredients'] ?? '';
+    $usage_tips = $inputData['usage_tips'] ?? '';
+    $image_url = $inputData['image_url'] ?? '';
 
-    if (empty($name) || empty($description) || $price <= 0 || empty($brand) || $stock_quantity < 0) {
+    // Validate input data
+    $errors = [];
+
+    if (empty($name)) {
+        $errors[] = "Product name is required";
+    }
+    if (empty($description)) {
+        $errors[] = "Product description is required";
+    }
+    if ($price <= 0) {
+        $errors[] = "Price must be greater than 0";
+    }
+    if ($category_id <= 0) {
+        $errors[] = "Valid category ID is required";
+    }
+    if ($stock_quantity < 0) {
+        $errors[] = "Stock quantity cannot be negative";
+    }
+
+    if (!empty($errors)) {
         http_response_code(400);
         echo json_encode([
             "status" => "error",
-            "message" => "Invalid input data"
+            "message" => "Invalid input data",
+            "errors" => $errors
         ]);
         exit();
     }
 
     // Call the function to create a new product
-    $response = createProduct($name, $description, $price, $brand, $stock_quantity);
+    $response = createProduct(
+        $name,
+        $description,
+        $price,
+        $category_id,
+        $stock_quantity,
+        $ingredients,
+        $usage_tips,
+        $image_url
+    );
 
     echo json_encode($response);
 }
