@@ -7,7 +7,7 @@ function getAllProducts()
     global $conn; // Use the global connection object from dbconnection.php
 
     try {
-        $sql = "SELECT productid, name, description, price, brand, stock_quantity FROM products";
+        $sql = "SELECT productid, name, description, price, brand, stock_quantity, image_url FROM products";
         $result = $conn->query($sql);
 
         if (!$result) {
@@ -37,7 +37,7 @@ function getProductById($id)
     global $conn;
 
     try {
-        $stmt = $conn->prepare("SELECT productid, name, description, price, brand, stock_quantity FROM products WHERE productid = ?");
+        $stmt = $conn->prepare("SELECT productid, name, description, price, brand, stock_quantity, image_url FROM products WHERE productid = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
 
@@ -63,45 +63,18 @@ function getProductById($id)
     }
 }
 
-function getProductsForCards()
-{
-    global $conn;
-
-    try {
-        // Select only the required fields for product cards
-        $sql = "SELECT productid, name, price, image_url FROM products";
-        $result = $conn->query($sql);
-
-        if (!$result) {
-            throw new Exception("Query failed: " . $conn->error);
-        }
-
-        $products = [];
-        while ($row = $result->fetch_assoc()) {
-            $products[] = $row;
-        }
-
-        return $products;
-    } catch (Exception $e) {
-        http_response_code(500);
-        echo json_encode([
-            "status" => "error",
-            "message" => "Failed to fetch products for cards",
-            "error" => $e->getMessage()
-        ]);
-        exit();
-    }
-}
 
 
-header('Content-Type: application/json'); // Set the content type to JSON
+
+header('Content-Type: application/json');
 
 if (isset($_GET['id'])) {
+    // Fetch detailed product data by ID
     $productId = intval($_GET['id']);
     $product = getProductById($productId);
-    echo json_encode($product); // Output the product as JSON
+    echo json_encode($product);
 } else {
-
+    // Default: fetch all product details
     $allProducts = getAllProducts();
-    echo json_encode($allProducts); // Output all products as JSON
+    echo json_encode($allProducts);
 }
