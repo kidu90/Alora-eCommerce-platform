@@ -5,24 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alora - Shop</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Aclonica&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Cardo', 'sans-serif'],
-                        secondary: ['Aclonica']
-                    },
-                    colors: {
-                        'primary': '#BFBFBF',
-                        'black': '#000000',
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body class="font-sans bg-primary">
@@ -61,9 +45,9 @@
 
     <!-- Hero Banner -->
     <div class="relative w-full h-[400px] mb-12">
-        <img src="/placeholder.svg" alt="Shop Banner" class="w-full h-full object-cover">
+        <img src="images/shop1.png" alt="Shop Banner" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-            <h1 class="text-white text-5xl font-bold">Our Products</h1>
+            <h1 class="text-white text-5xl font-bold">Beauty begins with being yourself</h1>
         </div>
     </div>
 
@@ -85,56 +69,42 @@
         </div>
     </div>
 
+
+
+
     <!-- Products Grid -->
     <div class="container mx-auto px-4 mb-16">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-6 sm:mb-8 text-center sm:text-left">Products</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Product Card 1 -->
-            <div class="bg-white rounded-lg overflow-hidden">
-                <img src="/placeholder.svg" alt="Nude Red lipstick" class="w-full h-64 object-cover">
-                <div class="p-4">
-                    <h3 class="text-lg font-bold">Nude Red lipstick</h3>
-                    <div class="flex items-center mb-2">
-                        <span class="text-black">★★★★★</span>
-                    </div>
-                    <p class="text-black font-bold">Rs. 3000</p>
-                </div>
-            </div>
 
-            <!-- Product Card 2 -->
-            <div class="bg-white rounded-lg overflow-hidden">
-                <img src="/placeholder.svg" alt="Nude Red lipstick" class="w-full h-64 object-cover">
-                <div class="p-4">
-                    <h3 class="text-lg font-bold">Nude Red lipstick</h3>
-                    <div class="flex items-center mb-2">
-                        <span class="text-black">★★★★★</span>
-                    </div>
-                    <p class="text-black font-bold">Rs. 3000</p>
-                </div>
-            </div>
+            <?php
+            require_once 'functions.php';
 
-            <!-- Product Card 3 -->
-            <div class="bg-white rounded-lg overflow-hidden">
-                <img src="/placeholder.svg" alt="Nude Red lipstick" class="w-full h-64 object-cover">
-                <div class="p-4">
-                    <h3 class="text-lg font-bold">Nude Red lipstick</h3>
-                    <div class="flex items-center mb-2">
-                        <span class="text-black">★★★★★</span>
-                    </div>
-                    <p class="text-black font-bold">Rs. 3000</p>
-                </div>
-            </div>
+            $products = fetchProducts(1, 20)['data'];
+            // print_r($products);
 
-            <!-- Product Card 4 -->
-            <div class="bg-white rounded-lg overflow-hidden">
-                <img src="/placeholder.svg" alt="Nude Red lipstick" class="w-full h-64 object-cover">
-                <div class="p-4">
-                    <h3 class="text-lg font-bold">Nude Red lipstick</h3>
-                    <div class="flex items-center mb-2">
-                        <span class="text-black">★★★★★</span>
-                    </div>
-                    <p class="text-black font-bold">Rs. 3000</p>
-                </div>
-            </div>
+            foreach ($products as $item) {
+                //print_r($item);
+                $id = $item['product_id'];
+                $image = $item['image_url'];
+                $alt = $item['name'];
+                $text = $item['name'];
+                $price = $item['price'];
+                $category_name = $item['category_name'];
+                $stock_qty = $item['stock_quantity'];
+                $description = $item['description'];
+
+                require 'views/partials/product_card.php';
+            }
+
+            ?>
+
+
+
+
+
+
+
         </div>
     </div>
 

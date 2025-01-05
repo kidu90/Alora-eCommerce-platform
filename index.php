@@ -10,22 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Cardo:ital,wght@0,400;0,700;1,400&family=Ga+Maamli&family=Kanit:ital@1&family=Playfair+Display:wght@600&family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:wght@500&display=swap" rel="stylesheet">
-    <!-- <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Cardo', 'sans-serif'],
-                        secondary: ['Aclonica']
-                    },
-                    colors: {
-                        'primary': '#BFBFBF',
-                        'black': '#000000',
-                    }
-                }
-            }
-        }
-    </script> -->
+
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
@@ -167,7 +152,7 @@
             <?php
             require_once 'functions.php';
 
-            $products = fetchProducts(1, 20)['data'];
+            $products = fetchProducts(1, 4)['data'];
             // print_r($products);
 
             foreach ($products as $item) {
