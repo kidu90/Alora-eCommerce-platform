@@ -165,38 +165,22 @@
         <div class="grid sm:grid-col-2 md:grid-cols-4  gap-8">
 
             <?php
-            $products = [
-                [
-                    "image" => "images/Nudelipstick_product.png",
-                    "alt" => "Nude Red lipstick",
-                    "title" => "Nude Red lipstick",
-                    "price" => "Rs.2500",
-                ],
-                [
-                    "image" => "images/Nudelipstick_product.png",
-                    "alt" => "Nude Red lipstick",
-                    "title" => "Nude Red lipstick",
-                    "price" => "Rs.2500",
-                ],
-                [
-                    "image" => "images/Nudelipstick_product.png",
-                    "alt" => "Nude Red lipstick",
-                    "title" => "Nude Red lipstick",
-                    "price" => "Rs.2500",
-                ],
-                [
-                    "image" => "images/Nudelipstick_product.png",
-                    "alt" => "Nude Red lipstick",
-                    "title" => "Nude Red lipstick",
-                    "price" => "Rs.2500",
-                ],
-            ];
+            require_once 'functions.php';
+
+            $products = fetchProducts(1, 20)['data'];
+            // print_r($products);
 
             foreach ($products as $item) {
-                $image = $item['image'];
-                $alt = $item['alt'];
-                $text = $item['title'];
+                //print_r($item);
+                $id = $item['product_id'];
+                $image = $item['image_url'];
+                $alt = $item['name'];
+                $text = $item['name'];
                 $price = $item['price'];
+                $category_name = $item['category_name'];
+                $stock_qty = $item['stock_quantity'];
+                $description = $item['description'];
+
                 require 'views/partials/product_card.php';
             }
 
