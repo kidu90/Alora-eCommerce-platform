@@ -15,10 +15,19 @@
             </div>
             <div class="flex items-center space-x-4">
                 <!-- Account Icon -->
-                <a href="index.php?route=login" class="text-black">
-                    <span class="sr-only">Account</span>
-                    <img src="images/person.svg" alt="Account" class="h-6 w-6">
-                </a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <!-- User is logged in, show profile link -->
+                    <a href="index.php?route=profile" class="text-black">
+                        <span class="sr-only">Profile</span>
+                        <img src="images/person.svg" alt="Account" class="h-6 w-6">
+                    </a>
+                <?php else: ?>
+                    <!-- User is not logged in, show login link -->
+                    <a href="index.php?route=login" class="text-black">
+                        <span class="sr-only">Login</span>
+                        <img src="images/person.svg" alt="Account" class="h-6 w-6">
+                    </a>
+                <?php endif; ?>
 
                 <!-- Cart Icon -->
                 <a href="#">

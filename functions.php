@@ -3,7 +3,7 @@
 
 function fetchProducts($page = 1, $limit = 10)
 {
-    $url = 'http://localhost/Alora/api/Products/get_products.php'; // The path to the API endpoint
+    $url = 'http://localhost/Alora/api/Products/get_products.php';
 
     // Add pagination parameters to the API request
     $url .= '?page=' . $page . '&limit=' . $limit;
