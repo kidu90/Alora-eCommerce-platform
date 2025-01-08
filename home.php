@@ -14,7 +14,9 @@
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
+
 <body class="font-sans  bg-primary">
+
     <!-- Navigation -->
     <?php
     require 'views/partials/navbar.php'
@@ -55,9 +57,9 @@
 
     <!-- Shop Section -->
     <section class="bg-white py-20">
-        <div class="container mx-auto px-4 py-16">
+        <div class="container mx-auto px-6 py-12">
             <h2 class="text-5xl font-bold mb-20 text-center">SHOP BY CATEGORY</h2>
-            <div class="grid grid-cols-3 gap-6">
+            <div class="grid grid-cols-3 gap-5">
                 <?php
                 $categories = [
                     [
@@ -100,7 +102,9 @@
                 <p class="mb-4">Introducing "Nude" by Aurora – the latest addition to your makeup collection that promises to redefine elegance. This new lipstick shade is designed to complement and enhance your natural lip color, creating a timeless look that's perfect for any occasion.</p>
                 <p class="mb-8">"Nude" offers a smooth, creamy texture that ensures long-lasting wear without drying your lips. Infused with nourishing ingredients, it keeps your lips soft and supple throughout the day. Elevate your everyday look or add a touch of subtle beauty with Aurora's "Nude" lipstick.</p>
                 <div class="flex space-x-4">
-                    <button class="bg-white text-black px-6 py-2 rounded-full hover:bg-gray-100">Shop Now</button>
+                    <a href="index.php?route=shop">
+                        <button class="bg-white text-black px-6 py-2 rounded-full hover:bg-gray-100">Shop Now</button>
+                    </a>
                     <button class="border border-white px-6 py-2 rounded-full hover:bg-gray-100">Explore</button>
                 </div>
             </div>

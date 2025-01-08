@@ -2,20 +2,20 @@
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <div class="flex-shrink-0">
-                <a href="#" class="text-black text-2xl font-bold font-secondary">Aurora</a>
+                <a href="index.php?route=home" class="text-black text-2xl font-bold font-secondary">Aurora</a>
             </div>
             <div class="hidden md:block">
                 <div class="ml-10 flex items-center space-x-8">
-                    <a href="#" class="text-black hover:text-gray-200">About</a>
-                    <a href="#" class="text-black hover:text-gray-200">Shop</a>
-                    <a href="#" class="text-black hover:text-gray-200">Contact</a>
-                    <a href="#" class="text-black hover:text-gray-200">Subscription</a>
+                    <a href="index.php?route=about" class="text-black hover:text-gray-200">About</a>
+                    <a href="index.php?route=shop" class="text-black hover:text-gray-200">Shop</a>
+                    <a href="index.php?route=contact" class="text-black hover:text-gray-200">Contact</a>
+                    <a href="index.php?route=subscription" class="text-black hover:text-gray-200">Subscription</a>
 
                 </div>
             </div>
             <div class="flex items-center space-x-4">
                 <!-- Account Icon -->
-                <a href="#" class="text-black">
+                <a href="index.php?route=login" class="text-black">
                     <span class="sr-only">Account</span>
                     <img src="images/person.svg" alt="Account" class="h-6 w-6">
                 </a>

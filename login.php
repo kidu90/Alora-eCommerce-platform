@@ -45,7 +45,7 @@
                 </button>
             </form>
             <div class="mt-6 text-center">
-                <p class="text-sm text-gray-600">Don't have an account? <a href="#" class="text-black hover:underline">Sign up</a></p>
+                <p class="text-sm text-gray-600">Don't have an account? <a href="index.php?route=register" class="text-black hover:underline">Sign up</a></p>
             </div>
         </div>
     </section>
