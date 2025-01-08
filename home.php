@@ -34,7 +34,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="container mx-auto px-4 px-4 ml-9 mb-40 mt-56">
+    <section class="container mx-auto px-4 ml-9 mb-40 mt-56">
         <h2 class="text-4xl sm:text-5xl font-bold mb-6 sm:mb-8 text-center sm:text-left">About Us</h2>
         <div class="flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-8">
             <div class="w-full sm:w-1/2">
