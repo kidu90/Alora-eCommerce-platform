@@ -1,4 +1,8 @@
 <?php
+require_once '../../functions.php';
+
+
+session_start();
 // Define the route based on the URL parameter, default to 'home'
 $route = isset($_GET['route']) ? $_GET['route'] : 'home';
 
@@ -30,6 +34,11 @@ switch ($route) {
 
     case 'register':
         require 'register.php';
+        break;
+
+    case 'profile':
+        $user = isAuthenticated();
+        require 'profile.php';
         break;
 
 
