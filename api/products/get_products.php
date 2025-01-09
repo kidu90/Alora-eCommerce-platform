@@ -2,8 +2,6 @@
 require_once '../../dbconnection.php';
 
 
-
-
 // print_r($user);
 
 function getAllProducts($page = 1, $limit = 10)

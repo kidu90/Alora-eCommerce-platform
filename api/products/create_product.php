@@ -4,6 +4,7 @@ require_once '../../functions.php';
 
 isAuthenticated(true);
 
+
 function createProduct($name, $description, $price, $category_id, $stock_quantity, $ingredients, $usage_tips, $image_url)
 {
     global $conn;
