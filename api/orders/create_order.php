@@ -6,8 +6,6 @@ function createOrder($user_id, $shipping_address, $order_items)
     global $conn;
 
     try {
-        echo "Creating order...";
-        // Start a transaction
         $conn->begin_transaction();
 
         // Calculate total amount
@@ -17,7 +15,6 @@ function createOrder($user_id, $shipping_address, $order_items)
             $total_amount += $subtotal;
         }
 
-        // Insert order into the orders table
         $stmt = $conn->prepare("INSERT INTO orders (user_id, order_date, total_amount, status, shipping_address, payment_status) 
                                 VALUES (?, NOW(), ?, 'pending', ?, 'pending')");
         $stmt->bind_param("ids", $user_id, $total_amount, $shipping_address);

@@ -2,8 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require_once 'api/auth/login.php';
-//require_once 'dbconnection.php';
+
 
 // Handle the form submission for login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -27,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error_message = $response['message'];
     }
 }
+
 ?>
 
 
