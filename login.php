@@ -2,27 +2,18 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+require_once 'dbconnection.php';
+require_once 'functions.php';
 
-
-// Handle the form submission for login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Call the login function to authenticate the user
-    $response = loginUser(['email' => $email, 'password' => $password]);
+    $response = loginUser($email, $password);
 
-    // Check if login was successful
     if ($response['status'] === 'success') {
-        // Redirect based on user role
-        if ($_SESSION['ROLE'] === 'admin') {
-            header('Location: dashboard.php');
-        } else {
-            header('Location: home.php');
-        }
-        exit(); // Stop further script execution
+        header('Location: index.php');
     } else {
-        // If login fails, capture the error message to display
         $error_message = $response['message'];
     }
 }

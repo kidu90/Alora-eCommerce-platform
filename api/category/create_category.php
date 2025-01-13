@@ -6,7 +6,6 @@ function createCategory($name, $description)
     global $conn;
 
     try {
-        // Prepare the SQL statement
         $sql = "INSERT INTO categories (name, description) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
 
@@ -14,10 +13,8 @@ function createCategory($name, $description)
             throw new Exception("Prepare failed: " . $conn->error);
         }
 
-        // Bind the parameters
         $stmt->bind_param("ss", $name, $description);
 
-        // Execute the statement
         if (!$stmt->execute()) {
             throw new Exception("Execute failed: " . $stmt->error);
         }

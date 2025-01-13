@@ -6,10 +6,8 @@ function deleteOrder($order_id)
     global $conn;
 
     try {
-        // Start a transaction
         $conn->begin_transaction();
 
-        // Delete order items related to the order_id
         $stmt = $conn->prepare("DELETE FROM order_items WHERE order_id = ?");
         $stmt->bind_param("i", $order_id);
         if (!$stmt->execute()) {
@@ -46,7 +44,6 @@ function deleteOrder($order_id)
 
 header('Content-Type: application/json');
 
-// Check if the 'order_id' is provided in the URL
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $order_id = $_GET['order_id'] ?? null;
 

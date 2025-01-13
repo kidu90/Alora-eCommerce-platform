@@ -19,26 +19,26 @@
                     <!-- User is logged in, show profile link -->
                     <a href="index.php?route=profile" class="text-black">
                         <span class="sr-only">Profile</span>
-                        <img src="images/person.svg" alt="Account" class="h-6 w-6">
+                        <img src="assets/images/person.svg" alt="Account" class="h-6 w-6">
                     </a>
                 <?php else: ?>
                     <!-- User is not logged in, show login link -->
                     <a href="index.php?route=login" class="text-black">
                         <span class="sr-only">Login</span>
-                        <img src="images/person.svg" alt="Account" class="h-6 w-6">
+                        <img src="assets/images/person.svg" alt="Account" class="h-6 w-6">
                     </a>
                 <?php endif; ?>
 
                 <!-- Cart Icon -->
                 <a href="#">
                     <span class="sr-only">Cart</span>
-                    <img src="images/cart-3-svgrepo-com.svg" alt="Cart" class="h-6 w-6">
+                    <img src="assets/images/cart-3-svgrepo-com.svg" alt="Cart" class="h-6 w-6">
                 </a>
 
                 <!-- Search Icon -->
                 <a href="#">
                     <span class="sr-only">Search</span>
-                    <img src="images/search-svgrepo-com.svg" alt="Search" class="h-6 w-6">
+                    <img src="assets/images/search-svgrepo-com.svg" alt="Search" class="h-6 w-6">
                 </a>
 
 

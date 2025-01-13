@@ -34,8 +34,12 @@ switch ($route) {
 
 
     case 'profile':
-        $user = isAuthenticated();
-        require 'profile.php';
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?route=login');
+        } else {
+            require 'profile.php';
+        }
+
         break;
 
 

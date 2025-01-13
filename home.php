@@ -25,7 +25,7 @@
     <!-- Hero Section -->
     <section class="relative h-screen">
         <div class="w-[97%] mx-auto flex items-center justify-center">
-            <img src="images/image.png" alt="Image description" class="w-full h-auto overflow-hidden object-contain">
+            <img src="assets/images/image.png" alt="Image description" class="w-full h-auto overflow-hidden object-contain">
             <div class="absolute inset-x-0 bottom-10 left-10 flex flex-col justify-center items-start text-Black">
                 <h1 class="text-3xl font-thin ml-9 mb-2">Let Your</h1>
                 <h2 class="text-6xl font-bold mb-5 ml-9">SKIN GLOW</h2>
@@ -48,8 +48,8 @@
                 </p>
             </div>
             <div class="w-1/2 grid grid-cols-2 gap-4">
-                <img src="images/about.png" alt="Makeup product" class="w-full h-48 object-cover rounded-lg">
-                <img src="images/about2.png" alt="Makeup application" class="w-full h-48 object-cover rounded-lg">
+                <img src="assets/images/about.png" alt="Makeup product" class="w-full h-48 object-cover rounded-lg">
+                <img src="assets/images/about2.png" alt="Makeup application" class="w-full h-48 object-cover rounded-lg">
             </div>
         </div>
     </section>
@@ -65,17 +65,17 @@
                     [
                         'name' => 'Lips',
                         'url' => '#lips',
-                        'image_url' => 'images/lips-category.png'
+                        'image_url' => 'assets/images/lips-category.png'
                     ],
                     [
                         'name' => 'Eyes',
                         'url' => '#eyes',
-                        'image_url' => 'images/eyes-category.png'
+                        'image_url' => 'assets/images/eyes-category.png'
                     ],
                     [
                         'name' => 'Face',
                         'url' => '#face',
-                        'image_url' => 'images/skin-category.png'
+                        'image_url' => 'assets/images/skin-category.png'
                     ]
                 ];
 
@@ -95,7 +95,7 @@
     <section class=" py-16 my-16">
         <div class="container mx-auto px-4 flex md:flex-row flex-col items-center">
             <div class="md:w-1/3">
-                <img src="images/image 30.png" alt="Nude Lipstick" class="w-full h-auto rounded-3xl">
+                <img src="assets/images/image 30.png" alt="Nude Lipstick" class="w-full h-auto rounded-3xl">
             </div>
             <div class="md:w-2/3 md:pl-8 md:mt-0 mt-8">
                 <h2 class="text-4xl font-bold mb-4">Enhance Your Beauty with Aurora's New "Nude" Lipstick</h2>

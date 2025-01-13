@@ -76,7 +76,6 @@ function getCategoryById($categoryId)
 
 header('Content-Type: application/json');
 
-// Check if 'category_id' is provided in the URL
 if (isset($_GET['category_id'])) {
     $categoryId = filter_var($_GET['category_id'], FILTER_VALIDATE_INT);
 

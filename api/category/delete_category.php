@@ -7,7 +7,6 @@ function deleteCategory($categoryId)
 
     try {
 
-        // Prepare the SQL statement
         $sql = "DELETE FROM categories WHERE category_id = ?";
         $stmt = $conn->prepare($sql);
 
@@ -15,10 +14,8 @@ function deleteCategory($categoryId)
             throw new Exception("Prepare failed: " . $conn->error);
         }
 
-        // Bind the parameter
         $stmt->bind_param("i", $categoryId);
 
-        // Execute the statement
         if (!$stmt->execute()) {
             throw new Exception("Execute failed: " . $stmt->error);
         }

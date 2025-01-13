@@ -5,13 +5,13 @@
                 <h2 class="text-3xl font-bold font-secondary mb-4">Alora</h2>
                 <div class="flex space-x-4">
                     <a href="#" class="hover:text-gray-300">
-                        <image src="images/facebook.svg" alt="Facebook Icon" class="h-5 w-5">
+                        <image src="assets/images/facebook.svg" alt="Facebook Icon" class="h-5 w-5">
                     </a>
                     <a href="#" class="hover:text-gray-300">
-                        <image src="images/instagram.svg" alt="Instagram Icon" class="h-5 w-5">
+                        <image src="assets/images/instagram.svg" alt="Instagram Icon" class="h-5 w-5">
                     </a>
                     <a href="#" class="hover:text-gray-300">
-                        <image src="images/twitter.svg" alt="Twitter Icon" class="h-5 w-5">
+                        <image src="assets/images/twitter.svg" alt="Twitter Icon" class="h-5 w-5">
                     </a>
                 </div>
             </div>
@@ -32,11 +32,11 @@
                 </ul>
             </div>
             <div class="w-full md:w-1/4 mb-4 md:mb-0">
-                <h3 class="text-lg font-semibold mb-2">Information</h3>
+                <h3 class="text-lg font-semibold mb-2">Subscription</h3>
                 <ul>
-                    <li><a href="#" class="hover:text-gray-300">Home</a></li>
-                    <li><a href="#" class="hover:text-gray-300">FAQ</a></li>
-                    <li><a href="#" class="hover:text-gray-300">Contact</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Subscription</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Profile</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Cart</a></li>
                 </ul>
             </div>
 

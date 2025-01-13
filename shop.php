@@ -16,9 +16,8 @@
 
     <!-- Hero Banner -->
     <div class="relative w-full h-[400px] mb-12">
-        <img src="images/shop1.avif" alt="Shop Banner" class="w-full h-full object-cover">
+        <img src="assets/images/shop1.avif" alt="Shop Banner" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-black bg-opacity-30 flex text-left">
-            <h2 class="text-3xl  sm:text-2xl font-bold mb-6 sm:mb-8 text-center sm:text-left">Our Products</h2>
 
         </div>
     </div>
@@ -44,7 +43,10 @@
 
     <!-- Products Grid -->
     <div class="container mx-auto px-4 mb-16">
+        <h2 class="text-3xl  sm:text-xl font-bold mb-6 sm:mb-8 text-center sm:text-left">Our Products</h2>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
 
             <?php
             require_once 'functions.php';

@@ -63,7 +63,8 @@ function isAuthenticated($adminRequired = false)
         http_response_code(401); // Unauthorized
         echo json_encode([
             "status" => "error",
-            "message" => "Unauthorized access. Please log in."
+            "message" => "Unauthorized access. Please log in.",
+            "success" => false
         ]);
         exit; // Stop further execution
     }
@@ -73,7 +74,8 @@ function isAuthenticated($adminRequired = false)
         http_response_code(403); // Forbidden
         echo json_encode([
             "status" => "error",
-            "message" => "Admin access required."
+            "message" => "Admin access required.",
+            "success" => false
         ]);
         exit; // Stop further execution
     }
@@ -83,6 +85,63 @@ function isAuthenticated($adminRequired = false)
         "user_id" => $_SESSION['user_id'],
         "first_name" => $_SESSION['first_name'],
         "email" => $_SESSION['email'],
-        "role" => $_SESSION['ROLE']
+        "role" => $_SESSION['ROLE'],
+        "success" => true
     ];
+}
+
+function loginUser($email, $password)
+{
+    $url = 'http://localhost/Alora/api/auth/login.php';
+
+    // Create an array of data to be posted to the API
+    $data = [
+        'email' => $email,
+        'password' => $password
+    ];
+
+    // Use cURL to send a POST request to the API
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // Return the response as a string
+    curl_setopt($ch, CURLOPT_POST, true);  // Set request type as POST
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));  // Set the POST data
+
+    // Set the content type to application/json
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+    $response = curl_exec($ch);
+
+    if ($response === false) {
+        // Handle error in case of failure
+        return [
+            "status" => "error",
+            "message" => "Failed to login: " . curl_error($ch)
+        ];
+    }
+
+    curl_close($ch);
+
+    // Decode the JSON response
+    $data = json_decode($response, true);
+    // echo json_encode($data);
+    if (isset($data['status']) && $data['status'] === 'success') {
+        // Set session variables
+        startSession();
+        $_SESSION['user_id'] = $data['user']['id'];
+        $_SESSION['first_name'] = $data['user']['first_name'];
+        $_SESSION['email'] = $data['user']['email'];
+        $_SESSION['ROLE'] = $data['user']['role'];
+
+        return [
+            "status" => "success",
+            "message" => "Login successful"
+        ];
+    } else {
+        return [
+            "status" => "error",
+            "message" => "Invalid email or password"
+        ];
+    }
 }
