@@ -2,21 +2,18 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alora - Shop</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Aclonica&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
+    <?php
+    require 'views/partials/header.php'
+    ?>
 
-<body class="font-sans bg-primary">
+<body class="font-sans bg-white">
     <?php
     require 'views/partials/navbar.php'
     ?>
 
     <!-- Hero Banner -->
     <div class="relative w-full h-[400px] mb-12">
-        <img src="assets/images/shop1.avif" alt="Shop Banner" class="w-full h-full object-cover">
+        <img src="assets/images/shop.avif" alt="Shop Banner" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-black bg-opacity-30 flex text-left">
 
         </div>
@@ -25,13 +22,13 @@
     <!-- Filter Section -->
     <div class="container mx-auto px-4 mb-8">
         <div class="flex justify-end gap-4">
-            <select class="bg-white px-4 py-2 rounded">
+            <select class="bg-gray-200 px-4 py-2 rounded">
                 <option>Filter</option>
                 <option>Price: Low to High</option>
                 <option>Price: High to Low</option>
                 <option>Newest</option>
             </select>
-            <select class="bg-white px-4 py-2 rounded">
+            <select class="bg-gray-200 px-4 py-2 rounded">
                 <option>Sort by</option>
                 <option>Popularity</option>
                 <option>Rating</option>

@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Cardo', 'sans-serif'],
+        sans: ['Poppins'],
         secondary: ['Aclonica'], // Secondary font
       },
       colors: {

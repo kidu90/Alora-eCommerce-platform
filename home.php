@@ -2,20 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alora</title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Ga+Maamli&family=Kanit:ital@1&family=Playfair+Display:wght@600&family=Ubuntu:wght@500&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Cardo:ital,wght@0,400;0,700;1,400&family=Ga+Maamli&family=Kanit:ital@1&family=Playfair+Display:wght@600&family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:wght@500&display=swap" rel="stylesheet">
-
-    <link href="assets/css/style.css" rel="stylesheet">
-</head>
+    <?php
+    require 'views/partials/header.php'
+    ?>
 
 
-<body class="font-sans  bg-primary">
+<body class="font-sans">
 
     <!-- Navigation -->
     <?php
@@ -23,15 +15,16 @@
     ?>
 
     <!-- Hero Section -->
-    <section class="relative h-screen">
-        <div class="w-[97%] mx-auto flex items-center justify-center">
-            <img src="assets/images/image.png" alt="Image description" class="w-full h-auto overflow-hidden object-contain">
-            <div class="absolute inset-x-0 bottom-10 left-10 flex flex-col justify-center items-start text-Black">
-                <h1 class="text-3xl font-thin ml-9 mb-2">Let Your</h1>
-                <h2 class="text-6xl font-bold mb-5 ml-9">SKIN GLOW</h2>
-                <p class="text-3xl font-thin ml-9">With AURORA</p>
+    <section class="bg-gray-100 rounded-3xl mx-4 my-8 overflow-hidden">
+        <div class="container mx-auto px-4 py-16 flex items-center">
+            <div class="w-1/2">
+                <h2 class="text-4xl font-bold mb-4">Let Your</h2>
+                <h1 class="text-6xl font-bold mb-4">SKIN GLOW</h1>
+                <p class="text-xl mb-8">With Alora</p>
             </div>
-
+            <div class="w-1/2">
+                <img src="assets/images/new.avif" alt="Woman in white dress" class="w-full h-auto rounded-lg">
+            </div>
         </div>
     </section>
 
@@ -56,7 +49,7 @@
 
 
     <!-- Shop Section -->
-    <section class="bg-white py-20">
+    <section class="bg-gray-100  py-20">
         <div class="container mx-auto px-6 py-12">
             <h2 class="text-5xl font-bold mb-20 text-center">SHOP BY CATEGORY</h2>
             <div class="grid grid-cols-3 gap-5">
@@ -103,9 +96,9 @@
                 <p class="mb-8">"Nude" offers a smooth, creamy texture that ensures long-lasting wear without drying your lips. Infused with nourishing ingredients, it keeps your lips soft and supple throughout the day. Elevate your everyday look or add a touch of subtle beauty with Aurora's "Nude" lipstick.</p>
                 <div class="flex space-x-4">
                     <a href="index.php?route=shop">
-                        <button class="bg-white text-black px-6 py-2 rounded-full hover:bg-gray-100">Shop Now</button>
+                        <button class="bg-gray-200 text-black px-6 py-2 rounded-full hover:bg-gray-100">Shop Now</button>
                     </a>
-                    <button class="border border-white px-6 py-2 rounded-full hover:bg-gray-100">Explore</button>
+                    <button class="border border-gray-300 px-6 py-2 rounded-full hover:bg-gray-100">Explore</button>
                 </div>
             </div>
         </div>
