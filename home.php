@@ -16,10 +16,10 @@
 
     <!-- Hero Section -->
     <section class="bg-gray-100 rounded-3xl mx-4 my-8 overflow-hidden">
-        <div class="container mx-auto px-4 py-16 flex items-center">
+        <div class="container mx-auto px-4 py-16 flex items-center md:flex-row flex-col">
             <div class="w-1/2">
-                <h2 class="text-4xl font-bold mb-4">Let Your</h2>
-                <h1 class="text-6xl font-bold mb-4">SKIN GLOW</h1>
+                <h2 class="text-4xl md:text-3xl font-bold mb-4 ">Let Your</h2>
+                <h1 class="text-6xl font-bold mb-4 ">SKIN GLOW</h1>
                 <p class="text-xl mb-8">With Alora</p>
             </div>
             <div class="w-1/2">
@@ -29,18 +29,14 @@
     </section>
 
     <!-- About Section -->
-    <section class="container mx-auto px-4 ml-9 mb-40 mt-56">
-        <h2 class="text-4xl sm:text-5xl font-bold mb-6 sm:mb-8 text-center sm:text-left">About Us</h2>
-        <div class="flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-8">
-            <div class="w-full sm:w-1/2">
-                <p class="mb-4 ">
-                    Welcome to Aurora, where beauty meets brilliance. Our passion is to empower you with the confidence to show your best self—with innovative cosmetics that celebrate your unique beauty. At Aurora, we believe that makeup is more than just a product—it's an experience, an art form, and a means of self-expression.
-                </p>
-                <p>
-                    Founded with a vision to revolutionize the cosmetic industry, Aurora was born from a desire to offer luxurious, wearable beauty solutions. We are committed to using the finest ingredients and the latest technology to develop cosmetics that not only enhance your natural beauty but also care for your skin.
-                </p>
+    <section class="container mx-auto px-4 py-16 ">
+        <h2 class="text-4xl font-bold mb-8 md:items-center">About Us</h2>
+        <div class="flex space-x-8 md:flex-row flex-col ">
+            <div class="w-1/2 md:w-full">
+                <p class="mb-4">Welcome to Aurora, where beauty meets brilliance. Our passion is to empower you with the confidence to show your best self—with innovative cosmetics that celebrate your unique beauty. At Aurora, we believe that makeup is more than just a product—it's an experience, an art form, and a means of self-expression.</p>
+                <p>Founded with a vision to revolutionize the cosmetic industry, Aurora was born from a desire to offer luxurious, wearable beauty solutions. We are committed to using the finest ingredients and the latest technology to develop cosmetics that not only enhance your natural beauty but also care for your skin.</p>
             </div>
-            <div class="w-1/2 grid grid-cols-2 gap-4">
+            <div class="w-1/2 grid grid-cols-2 gap-4 md:grid-cols-1 gap-2">
                 <img src="assets/images/about.png" alt="Makeup product" class="w-full h-48 object-cover rounded-lg">
                 <img src="assets/images/about2.png" alt="Makeup application" class="w-full h-48 object-cover rounded-lg">
             </div>
@@ -49,9 +45,9 @@
 
 
     <!-- Shop Section -->
-    <section class="bg-gray-100  py-20">
+    <section class="bg-gray-100 py-20">
         <div class="container mx-auto px-6 py-12">
-            <h2 class="text-5xl font-bold mb-20 text-center">SHOP BY CATEGORY</h2>
+            <h2 class="text-4xl font-bold mb-8 ">SHOP BY CATEGORY</h2>
             <div class="grid grid-cols-3 gap-5">
                 <?php
                 $categories = [

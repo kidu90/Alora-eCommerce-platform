@@ -1,4 +1,9 @@
+
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+require_once 'dbconnection.php';
 // api/get_product.php
 
 function fetchProducts($page = 1, $limit = 10)
@@ -145,3 +150,6 @@ function loginUser($email, $password)
         ];
     }
 }
+
+
+// Fetch filtered products function

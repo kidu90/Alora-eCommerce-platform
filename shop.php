@@ -19,21 +19,16 @@
         </div>
     </div>
 
-    <!-- Filter Section -->
+    <!-- filter section -->
     <div class="container mx-auto px-4 mb-8">
         <div class="flex justify-end gap-4">
-            <select class="bg-gray-200 px-4 py-2 rounded">
-                <option>Filter</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-                <option>Newest</option>
+            <select id="filter" class="bg-gray-200 px-4 py-2 rounded">
+                <option value="">Filter</option>
+                <option value="price-low-high">Price: Low to High</option>
+                <option value="price-high-low">Price: High to Low</option>
+                <option value="newest">Newest</option>
             </select>
-            <select class="bg-gray-200 px-4 py-2 rounded">
-                <option>Sort by</option>
-                <option>Popularity</option>
-                <option>Rating</option>
-                <option>Featured</option>
-            </select>
+
         </div>
     </div>
 
@@ -72,6 +67,7 @@
     <?php
     require 'views/partials/footer.php'
     ?>
+
 
 </body>
 
