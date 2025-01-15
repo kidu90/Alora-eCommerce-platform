@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <?php
-    require 'views/partials/header.php'
-    ?>
+<?php
+require 'views/partials/header.php'
+?>
 
 
 <body class="font-sans">

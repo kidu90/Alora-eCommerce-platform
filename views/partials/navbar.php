@@ -11,8 +11,8 @@
             <!-- Account Icon -->
             <?php if (isset($_SESSION['user_id'])): ?>
                 <a href="index.php?route=profile" class="hover:text-gray-600">
-                    <span class="sr-only">Profile</span>
-                    <img src="../assets/images/person.svg" alt="Account">
+                    <span class="sr-only ">Profile</span>
+                    <img src="assets/images/person.svg" alt="Account" class="h-6 w-6">
                 </a>
             <?php else: ?>
                 <a href="index.php?route=login" class="hover:text-gray-600">

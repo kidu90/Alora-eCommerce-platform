@@ -48,6 +48,7 @@ switch ($route) {
         } else {
             require 'cart.php';
         }
+        break;
 
 
     case 'register':
