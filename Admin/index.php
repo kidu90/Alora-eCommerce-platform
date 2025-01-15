@@ -29,7 +29,7 @@
 
         <!-- Manage Products Tab -->
         <div id="manage-products" class="tab-content hidden space-y-6">
-            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Manage Products</h1>
+            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Add products</h1>
 
             <!-- Add Product Section -->
             <div class="bg-white p-6 rounded-lg shadow-md">
@@ -45,8 +45,17 @@
 
         <!-- Manage Categories Tab -->
         <div id="manage-categories" class="tab-content hidden">
-            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Manage Categories</h1>
-            <?php require '../views/partials/admin_dashboard/add_category.php'; ?>
+            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Add Categories</h1>
+
+            <!-- Add Category Form -->
+            <div class="mb-8"> <!-- Add margin bottom -->
+                <?php require '../views/partials/admin_dashboard/add_category.php'; ?>
+            </div>
+
+            <!-- Categories Table -->
+            <div>
+                <?php require '../views/partials/admin_dashboard/categories_table.php'; ?>
+            </div>
         </div>
 
 

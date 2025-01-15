@@ -6,7 +6,7 @@ $products = fetchProducts(null, null)['data'];
 ?>
 
 <div class="overflow-x-auto">
-    <h1>Products table </h1>
+    <h1 class="text-2xl font-semibold text-gray-900 mb-6">Products table</h1>
     <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg ">
         <thead>
             <tr>

@@ -10,6 +10,6 @@
             <label for="category_description" class="block text-sm font-medium text-gray-700">Description</label>
             <textarea id="category_description" name="category_description" required class="mt-2 p-3 w-full border border-gray-300 rounded-md" placeholder="Enter category description"></textarea>
         </div>
-        <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600">Create Category</button>
+        <button type="submit" class="w-full bg-green-500 text-black py-2 rounded-md hover:bg-green-600">Create Category</button>
     </form>
 </div>

@@ -50,7 +50,92 @@ function fetchProducts($page = 1, $limit = 10)
             "message" => "No products found or API error"
         ];
     }
+} //fetch categories
+function fetchCategories()
+{
+    $url = 'http://localhost/Alora/api/category/get_category.php';
+
+    // Use cURL to send a GET request to the API
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // Return the response as a string
+    curl_setopt($ch, CURLOPT_HTTPGET, true);  // Set request type as GET
+
+    $response = curl_exec($ch);
+
+    if ($response === false) {
+        // Handle error in case of failure
+        return [
+            "status" => "error",
+            "message" => "Failed to fetch categories: " . curl_error($ch)
+        ];
+    }
+
+    curl_close($ch);
+
+    // Decode the JSON response
+    $data = json_decode($response, true);
+
+    // Check if the API returns a successful response
+    if (isset($data['status']) && $data['status'] === 'success') {
+        return [
+            "status" => "success",
+            "data" => $data['data']  // Return only the categories data
+        ];
+    } else {
+        // If the response contains an error message
+        return [
+            "status" => "error",
+            "message" => "No categories found or API error"
+        ];
+    }
 }
+
+//function to fetch orders
+
+
+function fetchOrders()
+{
+    $url = 'http://localhost/Alora/api/order/get_orders.php';
+
+    // Use cURL to send a GET request to the API
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // Return the response as a string
+    curl_setopt($ch, CURLOPT_HTTPGET, true);  // Set request type as GET
+
+    $response = curl_exec($ch);
+
+    if ($response === false) {
+        // Handle error in case of failure
+        return [
+            "status" => "error",
+            "message" => "Failed to fetch orders: " . curl_error($ch)
+        ];
+    }
+
+    curl_close($ch);
+
+    // Decode the JSON response
+    $data = json_decode($response, true);
+
+    // Check if the API returns a successful response
+    if (isset($data['status']) && $data['status'] === 'success') {
+        return [
+            "status" => "success",
+            "data" => $data['data']  // Return only the orders data
+        ];
+    } else {
+        // If the response contains an error message
+        return [
+            "status" => "error",
+            "message" => "No orders found or API error"
+        ];
+    }
+}
+
 
 function startSession()
 {
