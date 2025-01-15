@@ -2,6 +2,7 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+ini_set('display_startup_errors', 1);
 
 require_once 'dbconnection.php';
 // api/get_product.php
@@ -58,42 +59,68 @@ function startSession()
     }
 }
 
-function isAuthenticated($adminRequired = false)
+// Function to check if a user is authenticated
+function isAuthenticated($adminRequired = false, $isApi = true)
 {
+    // For API requests, set JSON response header
+    if ($isApi) {
+        header('Content-Type: application/json');
+    }
 
-    header('Content-Type: application/json');
     startSession();
 
     if (!isset($_SESSION['user_id'])) {
-        http_response_code(401); // Unauthorized
-        echo json_encode([
-            "status" => "error",
-            "message" => "Unauthorized access. Please log in.",
-            "success" => false
-        ]);
+        if ($isApi) {
+            http_response_code(401); // Unauthorized
+            echo json_encode([
+                "status" => "error",
+                "message" => "Unauthorized access. Please log in.",
+                "success" => false
+            ]);
+        } else {
+            // Handle frontend non-API response here (e.g., redirect or show a message)
+            echo "Unauthorized access. Please log in.";
+        }
         exit; // Stop further execution
     }
 
     // Check if admin access is required
     if ($adminRequired && $_SESSION['ROLE'] !== 'admin') {
-        http_response_code(403); // Forbidden
-        echo json_encode([
-            "status" => "error",
-            "message" => "Admin access required.",
-            "success" => false
-        ]);
+        if ($isApi) {
+            http_response_code(403); // Forbidden
+            echo json_encode([
+                "status" => "error",
+                "message" => "Admin access required.",
+                "success" => false
+            ]);
+        } else {
+            // Handle frontend non-API response for unauthorized access
+            echo "Admin access required.";
+        }
         exit; // Stop further execution
     }
 
     // Optional: Return user session data if needed
-    return [
-        "user_id" => $_SESSION['user_id'],
-        "first_name" => $_SESSION['first_name'],
-        "email" => $_SESSION['email'],
-        "role" => $_SESSION['ROLE'],
-        "success" => true
-    ];
+    if ($isApi) {
+        return json_encode([
+            "user_id" => $_SESSION['user_id'],
+            "first_name" => $_SESSION['first_name'],
+            "email" => $_SESSION['email'],
+            "role" => $_SESSION['ROLE'],
+            "success" => true
+        ]);
+    } else {
+        // For frontend, return data directly (could be stored in JS variables, etc.)
+        return [
+            "user_id" => $_SESSION['user_id'],
+            "first_name" => $_SESSION['first_name'],
+            "email" => $_SESSION['email'],
+            "role" => $_SESSION['ROLE'],
+            "success" => true
+        ];
+    }
 }
+
 
 function loginUser($email, $password)
 {
@@ -151,5 +178,16 @@ function loginUser($email, $password)
     }
 }
 
+function logoutUser()
+{
+    session_start();
 
-// Fetch filtered products function
+    if (isset($_POST['logout'])) {
+        // Destroy the session
+        session_unset();
+        session_destroy();
+
+        header("Location: index.php?route=home");
+        exit();
+    }
+}

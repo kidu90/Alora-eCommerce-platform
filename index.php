@@ -42,6 +42,13 @@ switch ($route) {
 
         break;
 
+    case 'cart':
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?route=login');
+        } else {
+            require 'cart.php';
+        }
+
 
     case 'register':
         require 'register.php';

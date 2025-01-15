@@ -1,3 +1,16 @@
+<?php
+require_once 'functions.php';
+require_once 'dbconnection.php';
+
+isAuthenticated(false, false);
+$userId = $_SESSION['user_id'] ?? null;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
+    logoutUser();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,6 +52,12 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <form action="" method="POST">
+                    <button type="submit" name="logout" class="text-black font-bold py-2 px-4 rounded">
+                        Logout
+                    </button>
+                </form>
+
             </div>
         </div>
     </section>

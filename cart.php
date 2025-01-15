@@ -2,13 +2,9 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart - Aurora Beauty</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+    <?php require 'views/partials/header.php'; ?>
 
-<body class="bg-gray-50">
+<body class="bg-gray-50 font-sans">
 
     <!-- Navigation -->
     <?php require 'views/partials/navbar.php'; ?>
@@ -33,7 +29,7 @@
                         <!-- Cart Item 1 -->
                         <div class="grid grid-cols-12 gap-4 p-4 items-center">
                             <div class="col-span-6 flex gap-4">
-                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-01-15%20at%2011.54.06%E2%80%AFAM-Ts9HZjjOk0xz6T1syp4JSxu2b3kBqJ.png" alt="Makeup brushes" class="w-20 h-20 object-cover rounded-lg">
+                                <img src="" alt="Makeup brushes" class="w-20 h-20 object-cover rounded-lg">
                                 <div>
                                     <h3 class="font-semibold">Makeup brushes</h3>
                                     <p class="text-sm text-gray-500">P12</p>
@@ -52,7 +48,7 @@
                         <!-- Cart Item 2 -->
                         <div class="grid grid-cols-12 gap-4 p-4 items-center">
                             <div class="col-span-6 flex gap-4">
-                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-01-15%20at%2011.54.06%E2%80%AFAM-Ts9HZjjOk0xz6T1syp4JSxu2b3kBqJ.png" alt="Makeup brushes" class="w-20 h-20 object-cover rounded-lg">
+                                <img src="" alt="Makeup brushes" class="w-20 h-20 object-cover rounded-lg">
                                 <div>
                                     <h3 class="font-semibold">Makeup brushes</h3>
                                     <p class="text-sm text-gray-500">P13</p>
