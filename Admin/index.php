@@ -17,96 +17,60 @@
     <!-- Navigation -->
     <?php require '../views/partials/navbar.php'; ?>
 
-    <div class="flex">
-        <!-- Sidebar -->
-        <div class="w-64 h-screen bg-white shadow-sm">
-            <div class="p-4">
-                <nav class="space-y-2">
-                    <button onclick="showTab('home')" class="tab-link bg-gray-100 text-gray-900 flex items-center px-4 py-2 text-sm font-medium rounded-md">
-                        Home
-                    </button>
-                    <button onclick="showTab('manage-products')" class="tab-link text-gray-600 hover:bg-gray-50 hover:text-gray-900 flex items-center px-4 py-2 text-sm font-medium rounded-md">
-                        Manage Products
-                    </button>
-                    <button onclick="showTab('order-history')" class="tab-link text-gray-600 hover:bg-gray-50 hover:text-gray-900 flex items-center px-4 py-2 text-sm font-medium rounded-md">
-                        Order History
-                    </button>
-                    <button onclick="showTab('stock')" class="tab-link text-gray-600 hover:bg-gray-50 hover:text-gray-900 flex items-center px-4 py-2 text-sm font-medium rounded-md">
-                        Stock
-                    </button>
-                    <button onclick="showTab('subscriptions')" class="tab-link text-gray-600 hover:bg-gray-50 hover:text-gray-900 flex items-center px-4 py-2 text-sm font-medium rounded-md">
-                        Subscriptions
-                    </button>
-                </nav>
+    <?php require '../views/partials/admin_dashboard/sidebar.php'; ?>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-8">
+        <!-- Home Tab -->
+        <div id="home" class="tab-content">
+            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Home</h1>
+            <p>Welcome to the Alora Dashboard!</p>
+        </div>
+
+        <!-- Manage Products Tab -->
+        <div id="manage-products" class="tab-content hidden space-y-6">
+            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Manage Products</h1>
+
+            <!-- Add Product Section -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <?php require '../views/partials/admin_dashboard/add_products.php'; ?>
+            </div>
+
+            <!-- Product Table Section -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <?php require '../views/partials/admin_dashboard/products_table.php'; ?>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="flex-1 p-8">
-            <!-- Home Tab -->
-            <div id="home" class="tab-content">
-                <h1 class="text-2xl font-semibold text-gray-900 mb-6">Home</h1>
-                <p>Welcome to the Alora Dashboard!</p>
-            </div>
 
-            <!-- Manage Products Tab -->
-            <div id="manage-products" class="tab-content hidden">
-                <h1 class="text-2xl font-semibold text-gray-900 mb-6">Manage Products</h1>
-
-                <form id="createProductForm" method="POST" action="create_product.php" enctype="multipart/form-data">
-                    <label for="name" class="block text-gray-700">Product Name</label>
-                    <input type="text" id="name" name="name" class="form-input mb-4" required>
-
-                    <label for="description" class="block text-gray-700">Description</label>
-                    <textarea id="description" name="description" class="form-input mb-4" required></textarea>
-
-                    <label for="price" class="block text-gray-700">Price</label>
-                    <input type="number" id="price" name="price" class="form-input mb-4" required min="0">
-
-                    <label for="category_id" class="block text-gray-700">Category</label>
-                    <select id="category_id" name="category_id" class="form-input mb-4" required>
-                        <option value="">Select Category</option>
-                        <!-- Dynamically load categories from the backend -->
-                        <option value="1">Skincare</option>
-                        <option value="2">Haircare</option>
-                        <option value="3">Cosmetics</option>
-                    </select>
-
-                    <label for="stock_quantity" class="block text-gray-700">Stock Quantity</label>
-                    <input type="number" id="stock_quantity" name="stock_quantity" class="form-input mb-4" required min="0">
-
-                    <label for="ingredients" class="block text-gray-700">Ingredients</label>
-                    <textarea id="ingredients" name="ingredients" class="form-input mb-4"></textarea>
-
-                    <label for="usage_tips" class="block text-gray-700">Usage Tips</label>
-                    <textarea id="usage_tips" name="usage_tips" class="form-input mb-4"></textarea>
-
-                    <label for="image_url" class="block text-gray-700">Image URL</label>
-                    <input type="text" id="image_url" name="image_url" class="form-input mb-4">
-
-                    <button type="submit" class="bg-blue-500 text-black p-2 rounded-md">Create Product</button>
-                </form>
-            </div>
-
-
-            <!-- Order History Tab -->
-            <div id="order-history" class="tab-content hidden">
-                <h1 class="text-2xl font-semibold text-gray-900 mb-6">Order History</h1>
-                <p>View order history here.</p>
-            </div>
-
-            <!-- Stock Tab -->
-            <div id="stock" class="tab-content hidden">
-                <h1 class="text-2xl font-semibold text-gray-900 mb-6">Stock</h1>
-                <p>Manage stock details here.</p>
-            </div>
-
-            <!-- Subscriptions Tab -->
-            <div id="subscriptions" class="tab-content hidden">
-                <h1 class="text-2xl font-semibold text-gray-900 mb-6">Subscriptions</h1>
-                <p>Manage subscriptions here.</p>
-            </div>
+        <!-- Manage Categories Tab -->
+        <div id="manage-categories" class="tab-content hidden">
+            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Manage Categories</h1>
+            <?php require '../views/partials/admin_dashboard/add_category.php'; ?>
         </div>
+
+
+
+
+
+        <!-- Order History Tab -->
+        <div id="order-history" class="tab-content hidden">
+            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Order History</h1>
+            <p>View order history here.</p>
+        </div>
+
+        <!-- Stock Tab -->
+        <div id="stock" class="tab-content hidden">
+            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Stock</h1>
+            <p>Manage stock details here.</p>
+        </div>
+
+        <!-- Subscriptions Tab -->
+        <div id="subscriptions" class="tab-content hidden">
+            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Subscriptions</h1>
+            <p>Manage subscriptions here.</p>
+        </div>
+    </div>
     </div>
 
     <!-- Footer -->
