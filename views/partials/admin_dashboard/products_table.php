@@ -2,10 +2,13 @@
 require_once '../functions.php';
 
 // Fetch products from the database
-$products = fetchProducts(null, null)['data'];
+$products = fetchProducts(1, 20)['data'];
+
+//print_r($products);
+
 ?>
 
-<div class="overflow-x-auto">
+<div class="overflow-x-auto max-h-96">
     <h1 class="text-2xl font-semibold text-gray-900 mb-6">Products table</h1>
     <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg ">
         <thead>
@@ -41,6 +44,12 @@ $products = fetchProducts(null, null)['data'];
 </div>
 
 <style>
+    .max-h-96 {
+        max-height: 400px;
+        overflow-y: scroll;
+        /* Enable vertical scrolling */
+    }
+
     /* Tailwind max-w-xs ensures the column doesn't get too wide */
     .max-w-xs {
         max-width: 200px;

@@ -3,8 +3,6 @@ require_once '../../dbconnection.php';
 
 require_once '../../functions.php';
 
-isAuthenticated(true);
-
 function deleteProduct($id)
 {
     global $conn;

@@ -29,7 +29,6 @@
 
         <!-- Manage Products Tab -->
         <div id="manage-products" class="tab-content hidden space-y-6">
-            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Add products</h1>
 
             <!-- Add Product Section -->
             <div class="bg-white p-6 rounded-lg shadow-md">
@@ -40,6 +39,17 @@
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <?php require '../views/partials/admin_dashboard/products_table.php'; ?>
             </div>
+
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <?php require '../views/partials/admin_dashboard/edit_product.php'; ?>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <?php require '../views/partials/admin_dashboard/delete_product.php'; ?>
+            </div>
+
+
         </div>
 
 

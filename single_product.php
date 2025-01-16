@@ -59,10 +59,7 @@ try {
                             </a>
                         </div>
 
-                        <!-- Go Back Button -->
-                        <a href="index.php" class="mt-4 inline-block bg-gray-300 text-black py-2 px-4 rounded-full hover:bg-gray-400">
-                            Go Back
-                        </a>
+
                     </div>
                 </div>
             </section>

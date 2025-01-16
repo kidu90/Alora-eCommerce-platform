@@ -2,8 +2,6 @@
 require_once '../../dbconnection.php';
 require_once '../../functions.php';
 
-isAuthenticated(true);
-
 function updateProduct($productid, $name, $description, $price, $category_id, $stock_quantity, $ingredients, $usage_tips, $image_url)
 {
     global $conn;
