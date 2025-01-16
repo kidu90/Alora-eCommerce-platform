@@ -314,3 +314,37 @@ function fetchProductsById($id)
         throw new Exception($decodedResponse['message'] ?? 'Failed to fetch product.');
     }
 }
+
+function fetchOrdersByUserId($userId)
+{
+    $apiUrl = 'http://localhost/Alora/api/orders/get_orders.php?user_id=' . $userId;
+
+    // Initialize cURL session
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $apiUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+    // Execute cURL request
+    $response = curl_exec($ch);
+
+    // Handle cURL errors
+    if (curl_errno($ch)) {
+        $error = 'cURL error: ' . curl_error($ch);
+        curl_close($ch);
+        throw new Exception($error);
+    }
+
+    // Close cURL session
+    curl_close($ch);
+
+    // Decode the JSON response
+    $decodedResponse = json_decode($response, true);
+
+    // Check if the response contains data
+    if (isset($decodedResponse['status']) && $decodedResponse['status'] === 'success') {
+        return $decodedResponse['orders']; // Return order data
+    } else {
+        throw new Exception($decodedResponse['message'] ?? 'Failed to fetch orders.');
+    }
+}
