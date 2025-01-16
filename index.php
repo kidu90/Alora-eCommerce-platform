@@ -60,7 +60,6 @@ switch ($route) {
         exit();
         break;
 
-        // Single Product Page
     case 'single_product':
         // Ensure the product ID is provided in the URL
         if (!isset($_GET['id']) || empty(trim($_GET['id']))) {
