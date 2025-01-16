@@ -13,7 +13,7 @@
 
     <!-- Hero Banner -->
     <div class="relative w-full h-[400px] mb-12">
-        <img src="assets/images/shop.avif" alt="Shop Banner" class="w-full h-full object-cover">
+        <img src="assets/images/sub.avif" alt="Shop Banner" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-black bg-opacity-30 flex text-left">
 
         </div>

@@ -1,0 +1,37 @@
+# Ignore the node_modules directory
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore environment variable files
+.env
+
+# Ignore compiled files
+*.class
+*.o
+*.so
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE specific files
+.vscode/
+.idea/
+
+# Ignore Composer dependencies
+/vendor/
+
+# Ignore Laravel specific files
+/public/storage
+/storage/*.key
+/storage/*.log
+/storage/*.cache
+/storage/*.session
+/storage/*.views
+/storage/*.testing
+/bootstrap/cache/*.php
+
+# Ignore XAMPP specific files
+/xamppfiles/temp/

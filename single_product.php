@@ -54,7 +54,7 @@ try {
                                 <span class="px-4 py-2 border-x">1</span>
                                 <button class="px-4 py-2 text-xl">+</button>
                             </div>
-                            <a href="" class="inline-block bg-blue-600 text-white py-3 px-6 rounded-full text-lg hover:bg-blue-700 transition duration-300">
+                            <a href="" class="inline-block bg-blue-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition duration-300">
                                 Add to Cart
                             </a>
                         </div>

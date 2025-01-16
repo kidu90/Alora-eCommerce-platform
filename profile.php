@@ -16,15 +16,17 @@ try {
     // Fetch orders by user ID
     if ($userId) {
         $orders = fetchOrdersByUserId($userId);
+        $subscriptions = fetchSubscriptionsByUserId($userId);  // Fetch subscriptions for the user
     } else {
         $orders = [];
+        $subscriptions = [];
     }
 } catch (Exception $e) {
-    // Handle any errors in fetching orders
+    // Handle any errors in fetching orders or subscriptions
     $orders = [];
+    $subscriptions = [];
     $errorMessage = $e->getMessage();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +56,8 @@ try {
                 </div>
             <?php endif; ?>
 
-            <div class="overflow-x-auto">
+            <!-- Orders Table -->
+            <div class="overflow-x-auto mb-8">
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr>
@@ -79,13 +82,48 @@ try {
                         <?php endif; ?>
                     </tbody>
                 </table>
-
-                <form action="" method="POST">
-                    <button type="submit" name="logout" class="text-black font-bold py-2 px-4 rounded">
-                        Logout
-                    </button>
-                </form>
             </div>
+
+            <!-- Subscriptions Table -->
+            <h3 class="text-2xl font-bold mb-4">Your Subscription History</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Subscription ID</th>
+                            <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Plan ID</th>
+                            <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Start Date</th>
+                            <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Next Delivery</th>
+                            <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Status</th>
+                            <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($subscriptions)): ?>
+                            <?php foreach ($subscriptions as $subscription): ?>
+                                <tr>
+                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['subscription_id']); ?></td>
+                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['plan_id']); ?></td>
+                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['start_date']); ?></td>
+                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['next_delivery_date']); ?></td>
+                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['status']); ?></td>
+                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['created_at']); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="6" class="py-2 px-4 text-center text-gray-500">No subscriptions found</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <form action="" method="POST">
+                <button type="submit" name="logout" class="bg-gray-200 text-black px-6 py-2 rounded-full hover:bg-gray-100 mt-4 inline-block">
+                    Logout
+                </button>
+            </form>
         </div>
     </section>
 

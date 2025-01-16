@@ -91,9 +91,9 @@ require 'views/partials/header.php'
                 <p class="mb-8">"Nude" offers a smooth, creamy texture that ensures long-lasting wear without drying your lips. Infused with nourishing ingredients, it keeps your lips soft and supple throughout the day. Elevate your everyday look or add a touch of subtle beauty with Aurora's "Nude" lipstick.</p>
                 <div class="flex space-x-4">
                     <a href="index.php?route=shop">
-                        <button class="bg-gray-200 text-black px-6 py-2 rounded-full hover:bg-gray-100">Shop Now</button>
+                        <button class="bg-gray-200 text-black px-6 py-2 rounded-lg hover:bg-gray-100">Shop Now</button>
                     </a>
-                    <button class="border border-gray-300 px-6 py-2 rounded-full hover:bg-gray-100">Explore</button>
+                    <button class="border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100">Explore</button>
                 </div>
             </div>
         </div>

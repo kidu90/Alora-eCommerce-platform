@@ -15,7 +15,6 @@
 
 <body class="bg-gray-50 font-sans">
     <!-- Navigation -->
-    <?php require '../views/partials/navbar.php'; ?>
 
     <?php require '../views/partials/admin_dashboard/sidebar.php'; ?>
 
@@ -23,8 +22,7 @@
     <div class="flex-1 p-8">
         <!-- Home Tab -->
         <div id="home" class="tab-content">
-            <h1 class="text-2xl font-semibold text-gray-900 mb-6">Home</h1>
-            <p>Welcome to the Alora Dashboard!</p>
+            <p class="text-3xl">Welcome to the Alora Dashboard!</p>
         </div>
 
         <!-- Manage Products Tab -->
@@ -95,7 +93,6 @@
     </div>
 
     <!-- Footer -->
-    <?php require '../views/partials/footer.php'; ?>
 
     <!-- JavaScript -->
     <script>
