@@ -6,7 +6,7 @@ require_once '../functions.php';
 
 <div class="max-w-3xl mx-auto mt-10 p-8 bg-white border border-gray-200 rounded-lg shadow-lg">
     <h2 class="text-3xl font-semibold text-center mb-8">Create Product</h2>
-    <form action="create_product.php" method="POST">
+    <form action="" method="POST">
         <div class="mb-6">
             <label for="product_name" class="block text-sm font-medium text-gray-700">Product Name</label>
             <input type="text" id="product_name" name="product_name" required class="mt-2 p-3 w-full border border-gray-300 rounded-md" placeholder="Enter product name">

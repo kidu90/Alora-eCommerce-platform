@@ -2,7 +2,6 @@
 require_once '../../dbconnection.php';
 require_once '../../functions.php';
 
-isAuthenticated(true);
 
 // Function to create a new product
 function createProduct($name, $description, $price, $category_id, $stock_quantity, $ingredients, $usage_tips, $image_url)

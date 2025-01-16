@@ -9,5 +9,9 @@
                         <image src="assets/images/star.svg" alt="Star Icon" class="h-5 w-5">
         </div>
         <p class="text-gray-600"><?php echo $price; ?></p>
+        <a href="index.php?route=single_product&id=<?php echo $id; ?>"
+            class="mt-4 inline-block bg-blue-500 text-black py-2 px-4 rounded-md hover:bg-blue-600">
+            View Details
+        </a>
     </div>
 </div>

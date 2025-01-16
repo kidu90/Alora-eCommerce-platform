@@ -32,33 +32,42 @@ switch ($route) {
         require 'login.php';
         break;
 
-
     case 'profile':
         if (!isset($_SESSION['user_id'])) {
             header('Location: index.php?route=login');
+            exit();
         } else {
             require 'profile.php';
         }
-
         break;
 
     case 'cart':
         if (!isset($_SESSION['user_id'])) {
             header('Location: index.php?route=login');
+            exit();
         } else {
             require 'cart.php';
         }
         break;
-
 
     case 'register':
         require 'register.php';
         break;
 
     case 'logout':
-
         session_destroy();
         header('Location: index.php?route=home');
+        exit();
+        break;
+
+        // Single Product Page
+    case 'single_product':
+        // Ensure the product ID is provided in the URL
+        if (!isset($_GET['id']) || empty(trim($_GET['id']))) {
+            header('Location: '); // Redirect to a 404 page
+            exit();
+        }
+        require 'single_product.php';
         break;
 
     default:

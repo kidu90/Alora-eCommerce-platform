@@ -66,6 +66,8 @@
         <div id="order-history" class="tab-content hidden">
             <h1 class="text-2xl font-semibold text-gray-900 mb-6">Order History</h1>
             <p>View order history here.</p>
+
+            <?php require '../views/partials/admin_dashboard/order_table.php'; ?>
         </div>
 
         <!-- Stock Tab -->

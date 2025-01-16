@@ -1,8 +1,5 @@
-
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-ini_set('display_startup_errors', 1);
+
 
 require_once 'dbconnection.php';
 // api/get_product.php
@@ -51,6 +48,9 @@ function fetchProducts($page = 1, $limit = 10)
         ];
     }
 } //fetch categories
+
+
+//fetch categories
 function fetchCategories()
 {
     $url = 'http://localhost/Alora/api/category/get_category.php';
@@ -77,11 +77,12 @@ function fetchCategories()
     // Decode the JSON response
     $data = json_decode($response, true);
 
-    // Check if the API returns a successful response
+    // Check if the response contains the expected data
     if (isset($data['status']) && $data['status'] === 'success') {
         return [
             "status" => "success",
-            "data" => $data['data']  // Return only the categories data
+            "data" => $data['data'],
+            "pagination" => $data['pagination']  // Include pagination information
         ];
     } else {
         // If the response contains an error message
@@ -92,19 +93,22 @@ function fetchCategories()
     }
 }
 
+
+
 //function to fetch orders
-
-
-function fetchOrders()
+function fetchOrders($page = 1, $limit = 10)
 {
-    $url = 'http://localhost/Alora/api/order/get_orders.php';
+    $url = 'http://localhost/Alora/api/orders/get_orders.php';
+
+    // Add pagination parameters to the API request
+    $url .= '?page=' . $page . '&limit=' . $limit;
 
     // Use cURL to send a GET request to the API
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // Return the response as a string
-    curl_setopt($ch, CURLOPT_HTTPGET, true);  // Set request type as GET
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the response as a string
+    curl_setopt($ch, CURLOPT_HTTPGET, true); // Set request type as GET
 
     $response = curl_exec($ch);
 
@@ -125,7 +129,8 @@ function fetchOrders()
     if (isset($data['status']) && $data['status'] === 'success') {
         return [
             "status" => "success",
-            "data" => $data['data']  // Return only the orders data
+            "data" => $data['data'],
+            "pagination" => $data['pagination'] // Include pagination information
         ];
     } else {
         // If the response contains an error message
@@ -135,7 +140,6 @@ function fetchOrders()
         ];
     }
 }
-
 
 function startSession()
 {
@@ -221,9 +225,9 @@ function loginUser($email, $password)
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // Return the response as a string
-    curl_setopt($ch, CURLOPT_POST, true);  // Set request type as POST
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));  // Set the POST data
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the response as a string
+    curl_setopt($ch, CURLOPT_POST, true); // Set request type as POST
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // Set the POST data
 
     // Set the content type to application/json
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
@@ -274,5 +278,39 @@ function logoutUser()
 
         header("Location: index.php?route=home");
         exit();
+    }
+}
+
+function fetchProductsById($id)
+{
+    $apiUrl = 'http://localhost/Alora/api/products/get_products.php?id=' . $id;
+
+    // Initialize cURL session
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $apiUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+    // Execute cURL request
+    $response = curl_exec($ch);
+
+    // Handle cURL errors
+    if (curl_errno($ch)) {
+        $error = 'cURL error: ' . curl_error($ch);
+        curl_close($ch);
+        throw new Exception($error);
+    }
+
+    // Close cURL session
+    curl_close($ch);
+
+    // Decode the JSON response
+    $decodedResponse = json_decode($response, true);
+
+    // Check if the response contains data
+    if (isset($decodedResponse['status']) && $decodedResponse['status'] === 'success') {
+        return $decodedResponse['data']; // Return product data
+    } else {
+        throw new Exception($decodedResponse['message'] ?? 'Failed to fetch product.');
     }
 }
