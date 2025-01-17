@@ -9,27 +9,27 @@ $route = isset($_GET['route']) ? $_GET['route'] : 'home';
 // Routing logic
 switch ($route) {
     case 'home':
-        require 'home.php';
+        require 'views/home.php';
         break;
 
     case 'about':
-        require 'about.php';
+        require 'views/about.php';
         break;
 
     case 'shop':
-        require 'shop.php';
+        require 'views/shop.php';
         break;
 
     case 'contact':
-        require 'contact.php';
+        require 'views/contact.php';
         break;
 
     case 'subscription':
-        require 'subscription.php';
+        require 'views/subscription.php';
         break;
 
     case 'login':
-        require 'login.php';
+        require 'views/login.php';
         break;
 
     case 'profile':
@@ -37,7 +37,7 @@ switch ($route) {
             header('Location: index.php?route=login');
             exit();
         } else {
-            require 'profile.php';
+            require 'views/profile.php';
         }
         break;
 
@@ -46,12 +46,12 @@ switch ($route) {
             header('Location: index.php?route=login');
             exit();
         } else {
-            require 'cart.php';
+            require 'views/cart.php';
         }
         break;
 
     case 'register':
-        require 'register.php';
+        require 'views/register.php';
         break;
 
     case 'logout':
@@ -66,10 +66,10 @@ switch ($route) {
             header('Location: '); // Redirect to a 404 page
             exit();
         }
-        require 'single_product.php';
+        require 'views/single_product.php';
         break;
 
     default:
-        require '404.php';
+        require 'views/404.php';
         break;
 }
