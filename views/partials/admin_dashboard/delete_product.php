@@ -8,54 +8,45 @@
             <input type="text" id="product_id" name="product_id" required class="mt-2 p-3 w-full border border-gray-300 rounded-md" placeholder="Enter product ID">
         </div>
 
-        <button type="submit" class="w-full bg-gray-200 text-black px-6 py-2 rounded-full hover:bg-gray-100 mt-4 inline-block">Delete Product</button>
+        <button type="submit" class="w-full bg-gray-200 text-black px-6 py-2 rounded-lg hover:bg-gray-100 mt-4 inline-block">Delete Product</button>
     </form>
 </div>
 
 <script>
-    // Delete Product Form Handler
-    const deleteForm = document.querySelector('#deleteForm'); // Select the form
-    if (deleteForm) {
-        deleteForm.onsubmit = async function(e) {
-            e.preventDefault();
+    // JavaScript function to delete a product
+    async function deleteProduct(event) {
+        event.preventDefault(); // Prevent default form submission behavior
 
-            const apiUrl = 'http://localhost/Alora/api/products/delete_product.php'; // Your API URL
+        const productId = document.getElementById('product_id').value;
 
-            if (!apiUrl) {
-                alert('Error! System is not properly configured. Please try again later.');
-                console.log('Error: API URL not configured');
-                return;
-            }
+        if (!productId) {
+            alert('Please enter a product ID.');
+            return;
+        }
 
-            const productId = document.querySelector('#product_id').value; // Get product ID from input
-            console.log('Entered product ID:', productId); // Log the value of productId
-
-
-            try {
-                // Send DELETE request to delete the product
-                const response = await fetch(apiUrl, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        product_id: productId
-                    }), // Send product ID as JSON body
-                });
-
-                const data = await response.json();
-                console.log('Response data:', data); // Log the response
-
-                if (!response.ok) {
-                    throw new Error(data.error || 'Failed to delete product');
+        try {
+            // Send the DELETE request to the API
+            const response = await fetch(`http://localhost/Alora/api/products/delete_product.php?id=${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
                 }
+            });
 
-                alert('Success! Product deleted successfully.');
-                console.log('Product deleted successfully');
-            } catch (error) {
-                alert(`Error: ${error.message || 'Failed to delete product'}`);
-                console.log('Error:', error);
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(result.message || 'Product deleted successfully!');
+                document.getElementById('deleteForm').reset();
+            } else {
+                alert(`Error: ${result.message}`);
+                console.error('Error details:', result.message);
             }
-        };
+        } catch (error) {
+            console.error('An error occurred while deleting the product:', error);
+            alert('An unexpected error occurred. Please try again.');
+        }
     }
+
+    document.getElementById('deleteForm').addEventListener('submit', deleteProduct);
 </script>

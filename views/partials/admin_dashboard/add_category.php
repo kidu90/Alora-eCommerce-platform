@@ -15,7 +15,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="w-full bg-gray-200 text-black px-6 py-2 rounded-full hover:bg-gray-100 mt-4 inline-block">Create Category</button>
+        <button type="submit" class="w-full bg-gray-200 text-black px-6 py-2 rounded-lg hover:bg-gray-100 mt-4 inline-block">Create Category</button>
     </form>
 </div>
 

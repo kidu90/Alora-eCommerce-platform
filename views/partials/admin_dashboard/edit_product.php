@@ -9,6 +9,11 @@
         </div>
 
         <div class="mb-6">
+            <label for="category_id" class="block text-sm font-medium text-gray-700">category Id</label>
+            <input type="text" id="category_id" name="category_id" required class="mt-2 p-3 w-full border border-gray-300 rounded-md" placeholder="Enter category_id">
+        </div>
+
+        <div class="mb-6">
             <label for="product_name" class="block text-sm font-medium text-gray-700">Product Name</label>
             <input type="text" id="product_name" name="product_name" required class="mt-2 p-3 w-full border border-gray-300 rounded-md" placeholder="Enter product name">
         </div>
@@ -38,42 +43,34 @@
             <input type="url" id="product_image" name="product_image" required class="mt-2 p-3 w-full border border-gray-300 rounded-md" placeholder="Enter product image URL">
         </div>
 
-        <button type="submit" class="w-full bg-gray-200 text-black px-6 py-2 rounded-full hover:bg-gray-100 mt-4 inline-block">Update Product</button>
+        <button type="submit" class="w-full bg-gray-200 text-black px-6 py-2 rounded-lg hover:bg-gray-100 mt-4 inline-block">Update Product</button>
     </form>
 </div>
-
 <script>
-    document.getElementById('form').onsubmit = async function(e) {
-        e.preventDefault(); // Prevent form from submitting the default way
-
-        // Define the API URL for your POST request
-        const apiUrl = 'http://localhost/Alora/api/products/update_product.php';
+    // JavaScript function to edit a product
+    async function editProduct(event) {
+        event.preventDefault(); // Prevent default form submission behavior
 
         // Get form data
-        const formData = new FormData(this);
+        const form = document.getElementById('form');
+        const formData = new FormData(form);
 
-        // Create the product data object
+        // Convert form data to JSON
         const productData = {
-            product_id: formData.get('product_id'),
+            productid: formData.get('product_id'),
             name: formData.get('product_name'),
             description: formData.get('product_description'),
             price: parseFloat(formData.get('product_price')),
+            category_id: parseInt(formData.get('category_id') || 0), // Adjust this if `category_id` is not in your form
+            stock_quantity: parseInt(formData.get('stock_quantity') || 0), // Add this if needed
             ingredients: formData.get('product_ingredients'),
             usage_tips: formData.get('product_usage_tips'),
             image_url: formData.get('product_image')
         };
 
-        console.log(productData); // Check what data is being sent
-
-        // Validate that all fields are filled
-        if (!productData.product_id || !productData.name || !productData.description || !productData.price || !productData.ingredients || !productData.usage_tips || !productData.image_url) {
-            alert('Error: Please fill in all required fields.');
-            return;
-        }
-
         try {
-            // Send the POST request with the product data as JSON
-            const response = await fetch(apiUrl, {
+            // Send the request to the server
+            const response = await fetch('http://localhost/Alora/api/products/update_product.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -81,24 +78,21 @@
                 body: JSON.stringify(productData)
             });
 
-            // Parse the response data
-            const data = await response.json();
+            const result = await response.json();
 
-            // If the response is not ok, throw an error
-            if (!response.ok) {
-                throw new Error(data.error || 'Failed to update product');
+            if (response.ok) {
+                alert(result.message || "Product updated successfully!");
+                form.reset(); // Optionally reset the form after a successful update
+            } else {
+                alert(`Error: ${result.message}`);
+                console.error("Error details:", result.errors || result.message);
             }
-
-            // Show success message
-            alert('Success! Product updated successfully');
-            console.log('Product updated successfully');
-
-            // Optionally, redirect to a different page or reset the form
-            // window.location.href = '/somewhere'; // or reset the form here
         } catch (error) {
-            // Handle any errors that occur during the fetch
-            alert(`Error: ${error.message || 'Failed to update product'}`);
-            console.log('Error:', error);
+            console.error("An error occurred while updating the product:", error);
+            alert("An unexpected error occurred. Please try again.");
         }
-    };
+    }
+
+    // Attach the function to the form submission
+    document.getElementById('form').addEventListener('submit', editProduct);
 </script>

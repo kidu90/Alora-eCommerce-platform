@@ -71,6 +71,12 @@
         <div id="order-history" class="tab-content hidden">
 
             <?php require '../views/partials/admin_dashboard/order_table.php'; ?>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <?php require '../views/partials/admin_dashboard/update_order.php'; ?>
+            </div>
+
+
         </div>
 
         <!-- Stock Tab -->
