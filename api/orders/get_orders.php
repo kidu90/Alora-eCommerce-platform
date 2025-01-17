@@ -28,7 +28,7 @@ function getAllOrders()
 
             return [
                 "status" => "success",
-                "message" => "Orders retrieved successfully",
+                "message" => "All orders retrieved successfully",
                 "orders" => $orders
             ];
         } else {
@@ -94,16 +94,22 @@ function getOrdersByUserId($userId)
     }
 }
 
+// Handle API request
 header('Content-Type: application/json');
 
-// Example: Retrieve orders for a specific user
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
-    $userId = (int)$_GET['user_id'];
-    $response = getOrdersByUserId($userId);
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // Check if a user_id parameter is provided
+    if (isset($_GET['user_id'])) {
+        $userId = (int)$_GET['user_id'];
+        $response = getOrdersByUserId($userId);
+    } else {
+        // If no user_id is provided, fetch all orders
+        $response = getAllOrders();
+    }
 } else {
     $response = [
         "status" => "error",
-        "message" => "User ID is required"
+        "message" => "Invalid request method"
     ];
 }
 

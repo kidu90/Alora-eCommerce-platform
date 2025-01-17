@@ -43,7 +43,7 @@
             <?php
             require_once 'functions.php';
 
-            $products = fetchProducts(1, 20)['data'];
+            $products = fetchProducts(1, 12)['data'];
             // print_r($products);
 
             foreach ($products as $item) {

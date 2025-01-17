@@ -95,25 +95,20 @@ function fetchCategories()
 
 
 
-//function to fetch orders
-function fetchOrders($page = 1, $limit = 10)
+// Function to fetch orders
+function fetchOrders()
 {
     $url = 'http://localhost/Alora/api/orders/get_orders.php';
 
-    // Add pagination parameters to the API request
-    $url .= '?page=' . $page . '&limit=' . $limit;
-
-    // Use cURL to send a GET request to the API
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the response as a string
-    curl_setopt($ch, CURLOPT_HTTPGET, true); // Set request type as GET
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
 
     $response = curl_exec($ch);
 
     if ($response === false) {
-        // Handle error in case of failure
         return [
             "status" => "error",
             "message" => "Failed to fetch orders: " . curl_error($ch)
@@ -122,24 +117,9 @@ function fetchOrders($page = 1, $limit = 10)
 
     curl_close($ch);
 
-    // Decode the JSON response
-    $data = json_decode($response, true);
-
-    // Check if the API returns a successful response
-    if (isset($data['status']) && $data['status'] === 'success') {
-        return [
-            "status" => "success",
-            "data" => $data['data'],
-            "pagination" => $data['pagination'] // Include pagination information
-        ];
-    } else {
-        // If the response contains an error message
-        return [
-            "status" => "error",
-            "message" => "No orders found or API error"
-        ];
-    }
+    return json_decode($response, true);
 }
+
 
 function startSession()
 {
@@ -151,7 +131,6 @@ function startSession()
 // Function to check if a user is authenticated
 function isAuthenticated($adminRequired = false, $isApi = true)
 {
-    // For API requests, set JSON response header
     if ($isApi) {
         header('Content-Type: application/json');
     }
@@ -167,10 +146,9 @@ function isAuthenticated($adminRequired = false, $isApi = true)
                 "success" => false
             ]);
         } else {
-            // Handle frontend non-API response here (e.g., redirect or show a message)
             echo "Unauthorized access. Please log in.";
         }
-        exit; // Stop further execution
+        exit;
     }
 
     // Check if admin access is required

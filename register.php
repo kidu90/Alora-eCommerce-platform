@@ -1,3 +1,24 @@
+<?php
+require_once 'dbconnection.php';
+require_once 'functions.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Assuming you have a function to handle user registration
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $error = registerUser($first_name, $last_name, $email, $password); // Call registerUser function
+
+    // If an error occurs, display it
+    if ($error) {
+        header('Location: register.php?error=' . $error);
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,13 +34,8 @@
     <section class="flex items-center justify-center min-h-screen">
         <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
             <h2 class="text-3xl font-bold mb-6 text-center font-secondary">Create Your Account</h2>
-            <?php
-            // Display any error messages
-            if (isset($_GET['error'])) {
-                echo "<p style='color: red; text-align: center;'>" . htmlspecialchars($_GET['error']) . "</p>";
-            }
-            ?>
-            <form>
+
+            <form method="POST">
                 <div class="mb-4">
                     <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
                     <input type="text" id="first_name" name="first_name" required

@@ -1,6 +1,8 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+
+// Get the logged-in user's ID from the session
+$userId = $_SESSION['user_id'] ?? null;
+
 require_once 'functions.php'; // Adjust the path to your functions file
 
 // Check if product ID is provided in the URL
@@ -50,21 +52,75 @@ try {
                         <!-- Quantity and Add to Cart Row -->
                         <div class="flex items-center space-x-4 mt-6">
                             <div class="flex items-center border rounded-md">
-                                <button class="px-4 py-2 text-xl">-</button>
-                                <span class="px-4 py-2 border-x">1</span>
-                                <button class="px-4 py-2 text-xl">+</button>
+                                <button id="decreaseButton" class="px-4 py-2 text-xl">-</button>
+                                <span id="quantity" class="px-4 py-2 border-x">1</span>
+                                <button id="increaseButton" class="px-4 py-2 text-xl">+</button>
                             </div>
-                            <a href="" class="inline-block bg-blue-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition duration-300">
+                            <button id="addToCartButton" class="inline-block bg-blue-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition duration-300">
                                 Add to Cart
-                            </a>
+                            </button>
                         </div>
-
-
                     </div>
                 </div>
             </section>
 
             <?php require 'views/partials/footer.php'; ?>
+
+            <script>
+                // JavaScript for handling quantity buttons and Add to Cart functionality
+
+                const quantityEl = document.getElementById("quantity");
+                const addToCartButton = document.getElementById("addToCartButton");
+
+                // Increase quantity
+                document.getElementById("increaseButton").addEventListener("click", () => {
+                    quantityEl.innerText = parseInt(quantityEl.innerText) + 1;
+                });
+
+                // Decrease quantity
+                document.getElementById("decreaseButton").addEventListener("click", () => {
+                    const currentQuantity = parseInt(quantityEl.innerText);
+                    if (currentQuantity > 1) {
+                        quantityEl.innerText = currentQuantity - 1;
+                    }
+                });
+
+                // Add to Cart functionality
+                addToCartButton.addEventListener("click", () => {
+                    <?php if ($userId): ?>
+                        // User is logged in
+                        const productId = <?php echo $product_id; ?>;
+                        const productName = <?php echo json_encode($product['name']); ?>;
+                        const productPrice = <?php echo json_encode($product['price']); ?>;
+                        const productImage = <?php echo json_encode($product['image_url']); ?>;
+                        const quantity = parseInt(quantityEl.innerText);
+
+                        // Create or update userCart in localStorage
+                        let cart = JSON.parse(localStorage.getItem("userCart")) || [];
+                        const existingProduct = cart.find(item => item.productId === productId);
+
+                        if (existingProduct) {
+                            existingProduct.quantity += quantity;
+                        } else {
+                            cart.push({
+                                productId,
+                                productName,
+                                productPrice,
+                                productImage,
+                                quantity
+                            });
+                        }
+
+                        localStorage.setItem("userCart", JSON.stringify(cart));
+                        alert("Product added to cart!");
+                    <?php else: ?>
+                        // User is not logged in
+                        alert("You must log in to add products to the cart.");
+                        window.location.href = "login.php"; // Redirect to login page
+                    <?php endif; ?>
+                });
+            </script>
+
         </body>
 
         </html>

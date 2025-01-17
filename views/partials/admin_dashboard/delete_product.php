@@ -8,7 +8,7 @@
             <input type="text" id="product_id" name="product_id" required class="mt-2 p-3 w-full border border-gray-300 rounded-md" placeholder="Enter product ID">
         </div>
 
-        <button type="submit" class="w-full bg-red-500 text-black px-6 py-2 rounded-full hover:bg-red-400 mt-4 inline-block">Delete Product</button>
+        <button type="submit" class="w-full bg-gray-200 text-black px-6 py-2 rounded-full hover:bg-gray-100 mt-4 inline-block">Delete Product</button>
     </form>
 </div>
 

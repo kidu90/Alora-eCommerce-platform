@@ -3,6 +3,7 @@ require_once '../functions.php';
 
 // Fetch categories from the database
 $categories = fetchCategories()['data'];
+
 ?>
 
 <div class="overflow-x-auto">

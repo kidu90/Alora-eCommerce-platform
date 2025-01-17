@@ -1,3 +1,11 @@
+<?php
+require_once 'dbconnection.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
+    logoutUser();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,48 +36,15 @@
                     </div>
 
                     <!-- Cart Items -->
-                    <div class="divide-y">
-                        <!-- Cart Item 1 -->
-                        <div class="grid grid-cols-12 gap-4 p-4 items-center">
-                            <div class="col-span-6 flex gap-4">
-                                <img src="" alt="Makeup brushes" class="w-20 h-20 object-cover rounded-lg">
-                                <div>
-                                    <h3 class="font-semibold">Makeup brushes</h3>
-                                    <p class="text-sm text-gray-500">P12</p>
-                                    <button class="text-sm text-gray-400 hover:text-gray-600">Remove</button>
-                                </div>
-                            </div>
-                            <div class="col-span-2 flex justify-center items-center space-x-2">
-                                <button class="w-8 h-8 rounded-full border hover:bg-gray-100">-</button>
-                                <input type="number" value="2" class="w-12 text-center border-none" />
-                                <button class="w-8 h-8 rounded-full border hover:bg-gray-100">+</button>
-                            </div>
-                            <div class="col-span-2 text-center">Rs. 400</div>
-                            <div class="col-span-2 text-center">Rs. 800</div>
-                        </div>
-
-                        <!-- Cart Item 2 -->
-                        <div class="grid grid-cols-12 gap-4 p-4 items-center">
-                            <div class="col-span-6 flex gap-4">
-                                <img src="" alt="Makeup brushes" class="w-20 h-20 object-cover rounded-lg">
-                                <div>
-                                    <h3 class="font-semibold">Makeup brushes</h3>
-                                    <p class="text-sm text-gray-500">P13</p>
-                                    <button class="text-sm text-gray-400 hover:text-gray-600">Remove</button>
-                                </div>
-                            </div>
-                            <div class="col-span-2 flex justify-center items-center space-x-2">
-                                <button class="w-8 h-8 rounded-full border hover:bg-gray-100">-</button>
-                                <input type="number" value="2" class="w-12 text-center border-none" />
-                                <button class="w-8 h-8 rounded-full border hover:bg-gray-100">+</button>
-                            </div>
-                            <div class="col-span-2 text-center">Rs. 400</div>
-                            <div class="col-span-2 text-center">Rs. 800</div>
-                        </div>
-
-
+                    <div id="cart-items" class="divide-y">
+                        <!-- Items will be dynamically injected here -->
                     </div>
                 </div>
+                <form action="" method="POST">
+                    <button type="submit" name="logout" class="bg-gray-200 text-black px-6 py-2 rounded-full hover:bg-gray-100 mt-4 inline-block">
+                        Logout
+                    </button>
+                </form>
             </div>
 
             <!-- Order Summary Section -->
@@ -78,23 +53,19 @@
 
                 <div class="space-y-4">
                     <div class="flex justify-between">
-                        <span>ITEMS2</span>
-                        <span>Rs.1600</span>
+                        <span>ITEMS<span id="total-items">0</span></span>
+                        <span>Rs.<span id="total-cost">0</span></span>
                     </div>
 
                     <div class="pt-4">
                         <h3 class="font-semibold mb-2">Shipping</h3>
-                        <select class="w-full p-2 rounded-lg bg-white border-none">
-                            <option>Select shipping method</option>
-                            <option>Standard Shipping</option>
-                            <option>Express Shipping</option>
-                        </select>
+                        <input type="text" placeholder="Enter your address" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black">
                     </div>
 
                     <div class="border-t border-gray-300 pt-4 mt-4">
                         <div class="flex justify-between font-bold">
                             <span>TOTAL COST</span>
-                            <span>Rs.1600</span>
+                            <span>Rs.<span id="grand-total">0</span></span>
                         </div>
                     </div>
 
@@ -106,6 +77,92 @@
         </div>
     </main>
     <?php require 'views/partials/footer.php'; ?>
+
+    <script>
+        // Retrieve cart items from local storage
+        const cartItems = JSON.parse(localStorage.getItem("userCart")) || [];
+
+        const cartItemsContainer = document.getElementById("cart-items");
+        const totalItemsElement = document.getElementById("total-items");
+        const totalCostElement = document.getElementById("total-cost");
+        const grandTotalElement = document.getElementById("grand-total");
+
+        let totalItems = 0;
+        let totalCost = 0;
+
+        // Generate cart HTML
+        cartItems.forEach(item => {
+            const {
+                productId,
+                productName,
+                productPrice,
+                productImage,
+                quantity
+            } = item;
+            const itemTotal = productPrice * quantity;
+
+            // Update totals
+            totalItems += quantity;
+            totalCost += itemTotal;
+
+            // Add item to cart container
+            cartItemsContainer.innerHTML += `
+                <div class="grid grid-cols-12 gap-4 p-4 items-center">
+                    <div class="col-span-6 flex gap-4">
+                        <img src="${productImage}" alt="${productName}" class="w-20 h-20 object-cover rounded-lg">
+                        <div>
+                            <h3 class="font-semibold">${productName}</h3>
+                            <p class="text-sm text-gray-500">P${productId}</p>
+                            <button class="text-sm text-gray-400 hover:text-gray-600" onclick="removeItem(${productId})">Remove</button>
+                        </div>
+                    </div>
+                    <div class="col-span-2 flex justify-center items-center space-x-2">
+                        <button class="w-8 h-8 rounded-full border hover:bg-gray-100" onclick="decreaseQuantity(${productId})">-</button>
+                        <input type="number" value="${quantity}" class="w-12 text-center border-none" readonly />
+                        <button class="w-8 h-8 rounded-full border hover:bg-gray-100" onclick="increaseQuantity(${productId})">+</button>
+                    </div>
+                    <div class="col-span-2 text-center">Rs. ${productPrice}</div>
+                    <div class="col-span-2 text-center">Rs. ${itemTotal}</div>
+                </div>
+            `;
+        });
+
+        // Update totals in the UI
+        totalItemsElement.textContent = totalItems;
+        totalCostElement.textContent = totalCost;
+        grandTotalElement.textContent = totalCost;
+
+        // Remove item function
+        function removeItem(productId) {
+            const updatedCart = cartItems.filter(item => item.productId !== productId);
+            localStorage.setItem("userCart", JSON.stringify(updatedCart));
+            location.reload();
+        }
+
+        // Increase quantity
+        function increaseQuantity(productId) {
+            const updatedCart = cartItems.map(item => {
+                if (item.productId === productId) {
+                    item.quantity += 1;
+                }
+                return item;
+            });
+            localStorage.setItem("userCart", JSON.stringify(updatedCart));
+            location.reload();
+        }
+
+        // Decrease quantity
+        function decreaseQuantity(productId) {
+            const updatedCart = cartItems.map(item => {
+                if (item.productId === productId && item.quantity > 1) {
+                    item.quantity -= 1;
+                }
+                return item;
+            });
+            localStorage.setItem("userCart", JSON.stringify(updatedCart));
+            location.reload();
+        }
+    </script>
 </body>
 
 </html>
