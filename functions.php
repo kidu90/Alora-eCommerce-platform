@@ -297,29 +297,23 @@ function fetchOrdersByUserId($userId)
 {
     $apiUrl = 'http://localhost/Alora/api/orders/get_orders.php?user_id=' . $userId;
 
-    // Initialize cURL session
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $apiUrl);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
-    // Execute cURL request
     $response = curl_exec($ch);
 
-    // Handle cURL errors
     if (curl_errno($ch)) {
         $error = 'cURL error: ' . curl_error($ch);
         curl_close($ch);
         throw new Exception($error);
     }
 
-    // Close cURL session
     curl_close($ch);
 
-    // Decode the JSON response
     $decodedResponse = json_decode($response, true);
 
-    // Check if the response contains data
     if (isset($decodedResponse['status']) && $decodedResponse['status'] === 'success') {
         return $decodedResponse['orders']; // Return order data
     } else {
@@ -327,46 +321,42 @@ function fetchOrdersByUserId($userId)
     }
 }
 
+
+// Function to fetch all subscriptions by user ID
 function fetchSubscriptionsByUserId($userId)
 {
     $apiUrl = 'http://localhost/Alora/api/subs/get_customerSubscription.php?user_id=' . $userId;
 
-    // Initialize cURL session
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $apiUrl);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
-    // Execute cURL request
     $response = curl_exec($ch);
 
-    // Handle cURL errors
     if (curl_errno($ch)) {
         $error = 'cURL error: ' . curl_error($ch);
         curl_close($ch);
         throw new Exception($error);
     }
 
-    // Close cURL session
     curl_close($ch);
 
-    // Decode the JSON response
     $decodedResponse = json_decode($response, true);
 
-    // Check if the response contains data
     if (isset($decodedResponse['status']) && $decodedResponse['status'] === 'success') {
-        return $decodedResponse['subscriptions']; // Return subscription data
+        return $decodedResponse['subscriptions'];
     } else {
         throw new Exception($decodedResponse['message'] ?? 'Failed to fetch subscriptions.');
     }
 }
+
 
 // Function to register a new user
 function registerUser($first_name, $last_name, $email, $password)
 {
     $url = 'http://localhost/Alora/api/auth/register.php';
 
-    // Create an array of data to be posted to the API
     $data = [
         'first_name' => $first_name,
         'last_name' => $last_name,
@@ -374,21 +364,18 @@ function registerUser($first_name, $last_name, $email, $password)
         'password' => $password
     ];
 
-    // Use cURL to send a POST request to the API
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the response as a string
-    curl_setopt($ch, CURLOPT_POST, true); // Set request type as POST
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // Set the POST data
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
-    // Set the content type to application/json
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
     $response = curl_exec($ch);
 
     if ($response === false) {
-        // Handle error in case of failure
         return [
             "status" => "error",
             "message" => "Failed to register: " . curl_error($ch)
@@ -397,10 +384,8 @@ function registerUser($first_name, $last_name, $email, $password)
 
     curl_close($ch);
 
-    // Decode the JSON response
     $data = json_decode($response, true);
 
-    // Check if the registration was successful
     if (isset($data['status']) && $data['status'] === 'success') {
         return [
             "status" => "success",

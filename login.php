@@ -12,13 +12,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = loginUser($email, $password);
 
     if ($response['status'] === 'success') {
-        header('Location: index.php');
+        // Role-based redirection
+        if ($_SESSION['ROLE'] === 'admin') {
+            header('Location: Admin/index.php'); // Redirect to the admin dashboard
+            exit;
+        } else {
+            header('Location: index.php'); // Redirect to the customer dashboard or homepage
+            exit;
+        }
     } else {
         $error_message = $response['message'];
     }
 }
-
 ?>
+
 
 
 <!DOCTYPE html>
