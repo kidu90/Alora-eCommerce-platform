@@ -23,7 +23,6 @@ function deleteOrder($order_id)
             throw new Exception("Failed to delete order: " . $stmt->error);
         }
 
-        // Commit the transaction
         $conn->commit();
 
         return [
@@ -31,7 +30,6 @@ function deleteOrder($order_id)
             "message" => "Order and associated items deleted successfully"
         ];
     } catch (Exception $e) {
-        // Rollback if any error occurs
         $conn->rollback();
         file_put_contents('php://stderr', "Transaction rolled back: " . $e->getMessage());
         return [

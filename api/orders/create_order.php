@@ -74,6 +74,7 @@ function createOrderItem($order_id, $product_id, $quantity, $price_per_unit)
     $stmt->close();
 }
 
+//reduce stock quantity of product
 function updateProductStock($product_id, $quantity)
 {
     global $conn;
@@ -99,14 +100,12 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inputData = json_decode(file_get_contents('php://input'), true);
 
-    // Log input data
     file_put_contents('php://stderr', "Received Input Data: " . print_r($inputData, true));
 
     $user_id = $inputData['user_id'] ?? 0;
     $shipping_address = $inputData['shipping_address'] ?? '';
     $order_items = $inputData['order_items'] ?? [];
 
-    // Validate input
     if ($user_id <= 0 || empty($shipping_address) || empty($order_items)) {
         http_response_code(400);
         echo json_encode([
@@ -116,7 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Call the createOrder function
     $response = createOrder($user_id, $shipping_address, $order_items);
 
     echo json_encode($response);

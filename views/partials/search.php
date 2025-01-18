@@ -18,9 +18,8 @@
                 <option value="">All Categories</option>
                 <option value="Skincare">Skincare</option>
                 <option value="Haircare">Haircare</option>
-                <option value="Cosmetics">Lips</option>
-                <option value="Cosmetics">Eyes</option>
-                <!-- Add more categories here as needed -->
+                <option value="Lips">Lips</option>
+                <option value="Eyes">Eyes</option>
             </select>
         </div>
 
@@ -31,7 +30,6 @@
     </div>
 </div>
 
-<!-- Your existing search icon and popup code remains unchanged -->
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -66,7 +64,7 @@
             const searchQuery = searchInput.value.trim();
             const selectedCategory = categoryDropdown.value;
             // Call the search function
-            fetchAndRenderProducts(searchQuery, selectedCategory); // Ensure this function exists
+            fetchAndRenderProducts(searchQuery, selectedCategory);
             searchPopup.classList.remove("opacity-100");
             searchPopup.classList.add("opacity-0");
             setTimeout(() => {

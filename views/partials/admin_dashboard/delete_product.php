@@ -2,7 +2,7 @@
 <div class="max-w-4xl mx-auto mt-10 p-8 bg-white border border-gray-200 rounded-lg shadow-lg">
     <h2 class="text-2xl font-semibold text-left mb-6">Delete Product</h2>
     <form id="deleteForm" method="POST">
-        <!-- Product ID (for identification) -->
+        <!-- Product ID  -->
         <div class="mb-6">
             <label for="product_id" class="block text-sm font-medium text-gray-700">Product ID</label>
             <input type="text" id="product_id" name="product_id" required class="mt-2 p-3 w-full border border-gray-300 rounded-md" placeholder="Enter product ID">
@@ -13,7 +13,6 @@
 </div>
 
 <script>
-    // JavaScript function to delete a product
     async function deleteProduct(event) {
         event.preventDefault(); // Prevent default form submission behavior
 

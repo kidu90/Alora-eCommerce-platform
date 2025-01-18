@@ -1,7 +1,6 @@
 <?php
 require_once '../../dbconnection.php';
 
-// Enable error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -62,7 +61,6 @@ function getOrdersByUserId($userId)
 
             $stmt->close();
 
-            // Log the orders for debugging
             //file_put_contents('php://stderr', print_r($orders, true));
 
             return [

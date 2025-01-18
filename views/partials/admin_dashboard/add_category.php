@@ -27,7 +27,7 @@
 
             e.preventDefault(); // Prevent the default form submission
 
-            const apiUrl = 'http://localhost/Alora/api/category/create_category.php'; // Updated API URL for category creation
+            const apiUrl = 'http://localhost/Alora/api/category/create_category.php';
 
             // Collecting form data
             const formData = new FormData(categoryForm);
@@ -47,7 +47,7 @@
                     body: JSON.stringify(categoryData),
                 });
 
-                 if (!response.ok) {
+                if (!response.ok) {
                     const data = await response.json();
                     throw new Error(data.message || 'Failed to create category');
                 }
@@ -60,10 +60,8 @@
                 console.log('Category created successfully');
                 alert('Category created successfully');
 
-                // Optionally, reset the form
                 categoryForm.reset();
             } catch (error) {
-                // Error handling
                 console.error('Error:', error);
                 console.log('Failed to create category. Please try again later.');
                 alert('Failed to create category. Please try again later.');

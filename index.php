@@ -3,7 +3,6 @@ session_start();
 
 require_once 'functions.php';
 
-// Define the route based on the URL parameter, default to 'home'
 $route = isset($_GET['route']) ? $_GET['route'] : 'home';
 
 // Routing logic
@@ -61,7 +60,6 @@ switch ($route) {
         break;
 
     case 'single_product':
-        // Ensure the product ID is provided in the URL
         if (!isset($_GET['id']) || empty(trim($_GET['id']))) {
             header('Location: '); // Redirect to a 404 page
             exit();

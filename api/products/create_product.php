@@ -9,12 +9,11 @@ function createProduct($name, $description, $price, $category_id, $stock_quantit
     global $conn;
 
     try {
-        // Sanitize inputs to avoid any malicious data
         $name = htmlspecialchars(trim($name));
         $description = htmlspecialchars(trim($description));
         $ingredients = htmlspecialchars(trim($ingredients));
         $usage_tips = htmlspecialchars(trim($usage_tips));
-        $image_url = filter_var(trim($image_url), FILTER_SANITIZE_URL);  // Sanitize URL
+        $image_url = filter_var(trim($image_url), FILTER_SANITIZE_URL);
 
         $stmt = $conn->prepare("INSERT INTO products (name, description, price, category_id, stock_quantity, ingredients, usage_tips, image_url) 
                                VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -66,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stock_quantity = $inputData['stock_quantity'] ?? 0;
     $ingredients = $inputData['ingredients'] ?? '';
     $usage_tips = $inputData['usage_tips'] ?? '';
-    $image_url = $inputData['image_url'] ?? '';  // Optional image URL or file path
+    $image_url = $inputData['image_url'] ?? '';
 
     // Validate input data
     $errors = [];
@@ -97,7 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Call the function to create a new product
     $response = createProduct(
         $name,
         $description,

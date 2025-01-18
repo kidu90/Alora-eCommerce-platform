@@ -8,9 +8,9 @@
             <img src="assets/images/star.svg" alt="Star Icon" class="h-5 w-5">
             <img src="assets/images/star.svg" alt="Star Icon" class="h-5 w-5">
         </div>
-        <p class="text-gray-600 mb-4"><?php echo $price; ?></p> <!-- Added margin-bottom to give space -->
+        <p class="text-gray-600 mb-4"><?php echo $price; ?></p>
         <a href="index.php?route=single_product&id=<?php echo $id; ?>"
-            class="bg-gray-200 text-black px-6 py-2 rounded-lg hover:bg-gray-100 mt-4 inline-block"> <!-- Added margin-top to separate button from text -->
+            class="bg-gray-200 text-black px-6 py-2 rounded-lg hover:bg-gray-100 mt-4 inline-block">
             View Details
         </a>
     </div>

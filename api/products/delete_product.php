@@ -65,7 +65,7 @@ function deleteProduct($id)
         if (strpos($e->getMessage(), "not found") !== false) {
             $statusCode = 404;
         } else if (strpos($e->getMessage(), "referenced in orders") !== false) {
-            $statusCode = 409; // Conflict
+            $statusCode = 409;
         }
 
         http_response_code($statusCode);

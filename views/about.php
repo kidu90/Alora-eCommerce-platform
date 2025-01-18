@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Head section remains the same -->
 
 
 <?php
@@ -34,7 +33,7 @@ require 'views/partials/header.php'
     </section>
 
 
-    <!-- Beauty Categories with updated images -->
+    <!-- Beauty Categories  -->
     <section class="container mx-auto px-4 py-16">
         <div class="grid grid-cols-2 gap-8">
             <div class="relative rounded-lg overflow-hidden h-[500px]">
@@ -52,7 +51,7 @@ require 'views/partials/header.php'
         </div>
     </section>
 
-    <!-- Our Team Section with updated image -->
+    <!-- Our Team Section  -->
     <section class="bg-white py-20">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center max-w-6xl mx-auto">
@@ -80,7 +79,6 @@ require 'views/partials/header.php'
 
 
 
-    <!-- Footer remains the same -->
     <?php
     require 'views/partials/footer.php'
     ?>

@@ -67,7 +67,7 @@ try {
             <?php require 'views/partials/footer.php'; ?>
 
             <script>
-                // JavaScript for handling quantity buttons and Add to Cart functionality
+                //  quantity buttons and Add to Cart functionality
 
                 const quantityEl = document.getElementById("quantity");
                 const addToCartButton = document.getElementById("addToCartButton");

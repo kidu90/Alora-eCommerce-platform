@@ -124,7 +124,6 @@ header('Content-Type: application/json');
 $page = isset($_GET['page']) ? filter_var($_GET['page'], FILTER_VALIDATE_INT) : 1;
 $limit = isset($_GET['limit']) ? filter_var($_GET['limit'], FILTER_VALIDATE_INT) : 10;
 
-// Validate pagination parameters
 if ($page === false || $page <= 0) {
     $page = 1; // Default to page 1 if invalid page number
 }
@@ -132,7 +131,6 @@ if ($limit === false || $limit <= 0) {
     $limit = 10; // Default to 10 items per page if invalid limit
 }
 
-// Sanitize input if ID is provided
 if (isset($_GET['id'])) {
     $productId = filter_var($_GET['id'], FILTER_VALIDATE_INT);
 
@@ -145,10 +143,8 @@ if (isset($_GET['id'])) {
         exit();
     }
 
-    // Fetch detailed product data by ID
     $response = getProductById($productId);
 } else {
-    // Fetch all products with pagination
     $response = getAllProducts($page, $limit);
 }
 

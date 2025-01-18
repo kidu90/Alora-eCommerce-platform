@@ -3,15 +3,13 @@ require_once 'dbconnection.php';
 require_once 'functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Assuming you have a function to handle user registration
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $error = registerUser($first_name, $last_name, $email, $password); // Call registerUser function
+    $error = registerUser($first_name, $last_name, $email, $password);
 
-    // If an error occurs, display it
     if ($error) {
         header('Location: register.php?error=' . $error);
         exit();

@@ -97,7 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Call the function to update the product
     $response = updateProduct(
         $productid,
         $name,

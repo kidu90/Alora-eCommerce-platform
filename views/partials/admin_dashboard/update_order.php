@@ -49,6 +49,7 @@
 </div>
 
 <script>
+    // Update order status form submission
     document.getElementById("update-order-status-form").addEventListener("submit", async (event) => {
         event.preventDefault();
 
@@ -69,6 +70,7 @@
         }
     });
 
+    // Function to update order status
     async function updateOrderStatus(orderId, paymentStatus, status) {
         const apiUrl = "http://localhost/Alora/api/orders/update_order.php";
 

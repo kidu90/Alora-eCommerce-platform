@@ -51,7 +51,7 @@
         // Function to populate the subscription table
         function populateSubscriptionTable(subscriptions) {
             const tableBody = document.getElementById('subscriptionTableBody');
-            tableBody.innerHTML = ""; // Clear any existing rows
+            tableBody.innerHTML = "";
 
             subscriptions.forEach(subscription => {
                 const row = document.createElement('tr');
@@ -70,7 +70,6 @@
             });
         }
 
-        // Call fetchSubscriptions when the page loads
         document.addEventListener('DOMContentLoaded', fetchSubscriptions);
     </script>
 </body>

@@ -11,17 +11,15 @@ function fetchProducts($page = 1, $limit = 10)
     // Add pagination parameters to the API request
     $url .= '?page=' . $page . '&limit=' . $limit;
 
-    // Use cURL to send a GET request to the API
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // Return the response as a string
-    curl_setopt($ch, CURLOPT_HTTPGET, true);  // Set request type as GET
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
 
     $response = curl_exec($ch);
 
     if ($response === false) {
-        // Handle error in case of failure
         return [
             "status" => "error",
             "message" => "Failed to fetch products: " . curl_error($ch)
@@ -38,7 +36,7 @@ function fetchProducts($page = 1, $limit = 10)
         return [
             "status" => "success",
             "data" => $data['data'],
-            "pagination" => $data['pagination']  // Include pagination information
+            "pagination" => $data['pagination']
         ];
     } else {
         // If the response contains an error message
@@ -59,13 +57,12 @@ function fetchCategories()
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // Return the response as a string
-    curl_setopt($ch, CURLOPT_HTTPGET, true);  // Set request type as GET
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPGET, true);
 
     $response = curl_exec($ch);
 
     if ($response === false) {
-        // Handle error in case of failure
         return [
             "status" => "error",
             "message" => "Failed to fetch categories: " . curl_error($ch)
@@ -74,7 +71,6 @@ function fetchCategories()
 
     curl_close($ch);
 
-    // Decode the JSON response
     $data = json_decode($response, true);
 
     // Check if the response contains the expected data
@@ -82,10 +78,9 @@ function fetchCategories()
         return [
             "status" => "success",
             "data" => $data['data'],
-            "pagination" => $data['pagination']  // Include pagination information
+            "pagination" => $data['pagination']
         ];
     } else {
-        // If the response contains an error message
         return [
             "status" => "error",
             "message" => "No categories found or API error"
@@ -167,7 +162,6 @@ function isAuthenticated($adminRequired = false, $isApi = true)
         exit; // Stop further execution
     }
 
-    // Optional: Return user session data if needed
     if ($isApi) {
         return json_encode([
             "user_id" => $_SESSION['user_id'],
@@ -177,7 +171,6 @@ function isAuthenticated($adminRequired = false, $isApi = true)
             "success" => true
         ]);
     } else {
-        // For frontend, return data directly (could be stored in JS variables, etc.)
         return [
             "user_id" => $_SESSION['user_id'],
             "first_name" => $_SESSION['first_name'],
@@ -193,13 +186,11 @@ function loginUser($email, $password)
 {
     $url = 'http://localhost/Alora/api/auth/login.php';
 
-    // Create an array of data to be posted to the API
     $data = [
         'email' => $email,
         'password' => $password
     ];
 
-    // Use cURL to send a POST request to the API
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, $url);

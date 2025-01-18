@@ -2,7 +2,7 @@
 <div class="max-w-4xl mx-auto mt-10 p-8 bg-white border border-gray-200 rounded-lg shadow-lg">
     <h2 class="text-2xl font-semibold text-left mb-6">Edit Product</h2>
     <form id="form" method="POST">
-        <!-- Product ID (for identification) -->
+        <!-- Product ID  -->
         <div class="mb-6">
             <label for="product_id" class="block text-sm font-medium text-gray-700">Product ID</label>
             <input type="text" id="product_id" name="product_id" required class="mt-2 p-3 w-full border border-gray-300 rounded-md" placeholder="Enter product ID">
@@ -49,7 +49,7 @@
 <script>
     // JavaScript function to edit a product
     async function editProduct(event) {
-        event.preventDefault(); // Prevent default form submission behavior
+        event.preventDefault();
 
         // Get form data
         const form = document.getElementById('form');
@@ -61,8 +61,8 @@
             name: formData.get('product_name'),
             description: formData.get('product_description'),
             price: parseFloat(formData.get('product_price')),
-            category_id: parseInt(formData.get('category_id') || 0), // Adjust this if `category_id` is not in your form
-            stock_quantity: parseInt(formData.get('stock_quantity') || 0), // Add this if needed
+            category_id: parseInt(formData.get('category_id') || 0),
+            stock_quantity: parseInt(formData.get('stock_quantity') || 0),
             ingredients: formData.get('product_ingredients'),
             usage_tips: formData.get('product_usage_tips'),
             image_url: formData.get('product_image')
@@ -93,6 +93,5 @@
         }
     }
 
-    // Attach the function to the form submission
     document.getElementById('form').addEventListener('submit', editProduct);
 </script>

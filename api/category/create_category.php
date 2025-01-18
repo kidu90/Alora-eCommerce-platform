@@ -43,7 +43,6 @@ header('Content-Type: application/json');
 // Get data from the request (assuming JSON input)
 $data = json_decode(file_get_contents('php://input'), true);
 
-// Validate input
 if (isset($data['name']) && isset($data['description'])) {
     $name = trim($data['name']);
     $description = trim($data['description']);

@@ -47,12 +47,9 @@ $products = fetchProducts(1, 20)['data'];
     .max-h-96 {
         max-height: 400px;
         overflow-y: scroll;
-        /* Enable vertical scrolling */
     }
 
-    /* Tailwind max-w-xs ensures the column doesn't get too wide */
     .max-w-xs {
         max-width: 200px;
-        /* Adjust this value based on your preference */
     }
 </style>

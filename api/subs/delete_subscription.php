@@ -2,13 +2,11 @@
 require_once '../../dbconnection.php';
 require_once '../../functions.php';
 
-// Function to delete a subscription
 function deleteSubscription($subscription_id)
 {
     global $conn;
 
     try {
-        // Prepare the query to check if the subscription exists
         $stmt = $conn->prepare("SELECT * FROM customer_subscriptions WHERE subscription_id = ?");
         $stmt->bind_param("i", $subscription_id);
         $stmt->execute();
@@ -18,7 +16,6 @@ function deleteSubscription($subscription_id)
             throw new Exception("Subscription ID not found");
         }
 
-        // Prepare and execute the deletion query
         $delete_query = "DELETE FROM customer_subscriptions WHERE subscription_id = ?";
         $stmt = $conn->prepare($delete_query);
         $stmt->bind_param("i", $subscription_id);

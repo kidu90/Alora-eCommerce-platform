@@ -52,7 +52,7 @@
         // Function to populate the orders table
         function populateOrdersTable(orders) {
             const tableBody = document.getElementById('ordersTableBody');
-            tableBody.innerHTML = ""; // Clear any existing rows
+            tableBody.innerHTML = "";
 
             orders.forEach(order => {
                 const row = document.createElement('tr');
@@ -72,7 +72,6 @@
             });
         }
 
-        // Call fetchOrders when the page loads
         document.addEventListener('DOMContentLoaded', fetchOrders);
     </script>
 </body>

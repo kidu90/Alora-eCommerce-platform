@@ -90,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
         let totalItems = 0;
         let totalCost = 0;
 
-        // Generate cart HTML
         cartItems.forEach(item => {
             const {
                 productId,
@@ -174,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
 
             // Prepare order data
             const orderData = {
-                user_id: 1, // Replace with actual logged-in user ID
+                user_id: 1,
                 shipping_address: shippingAddress,
                 order_items: cartItems.map(item => ({
                     product_id: item.productId,

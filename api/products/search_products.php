@@ -1,12 +1,10 @@
 <?php
-// Include database connection
-include '../../dbconnection.php'; // Update with your actual db connection file
+include '../../dbconnection.php';
 
 // Check if the search query is set
 if (isset($_GET['query'])) {
     $searchQuery = $_GET['query'];
 
-    // Sanitize input to prevent SQL injection
     $searchQuery = mysqli_real_escape_string($conn, $searchQuery);
 
     // Start building the SQL query to search for products by name
@@ -17,12 +15,10 @@ if (isset($_GET['query'])) {
     // Check if category is set
     if (isset($_GET['category']) && !empty($_GET['category'])) {
         $category = $_GET['category'];
-        // Sanitize the category input
         $category = mysqli_real_escape_string($conn, $category);
         $sql .= " AND c.name = '$category'";
     }
 
-    // Execute the query
     $result = mysqli_query($conn, $sql);
 
     // Check if there are results
@@ -32,7 +28,6 @@ if (isset($_GET['query'])) {
             $products[] = $row;
         }
 
-        // Return the results as JSON
         echo json_encode($products);
     } else {
         echo json_encode([]);

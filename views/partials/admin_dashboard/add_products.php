@@ -62,9 +62,8 @@
 
             e.preventDefault();
 
-            const apiUrl = 'http://localhost/Alora/api/products/create_product.php'; // Your API URL
+            const apiUrl = 'http://localhost/Alora/api/products/create_product.php';
 
-            // Check if API URL is configured
             if (!apiUrl) {
                 console.log('System is not properly configured. Please try again later.');
                 return;
@@ -103,14 +102,11 @@
                 console.log('Product added successfully', data);
                 alert('Product added successfully');
 
-                // Optionally, reset the form
                 productForm.reset();
 
-                // Log success message in the console
                 console.log('Product has been created successfully');
                 alert('Product has been created successfully');
             } catch (error) {
-                // Error handling
                 console.error('Error:', error);
                 alert('Failed to create product. Please try again later.');
             }

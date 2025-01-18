@@ -2,7 +2,6 @@
 require_once '../../dbconnection.php';
 require_once '../../functions.php';
 
-// Function to create a new subscription
 function createSubscription($user_id, $plan_id)
 {
     global $conn;
@@ -62,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $inputData['user_id'] ?? 0;
     $plan_id = $inputData['plan_id'] ?? 0;
 
-    // Validate input data
     $errors = [];
 
     if ($user_id <= 0) {
@@ -82,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Call the function to create a new subscription
     $response = createSubscription($user_id, $plan_id);
 
     echo json_encode($response);
