@@ -27,9 +27,10 @@ function createOrder($user_id, $shipping_address, $order_items)
         $order_id = $stmt->insert_id;
         $stmt->close();
 
-        // Insert order items into the order_items table
+        // Insert order items into the order_items table and update stock
         foreach ($order_items as $item) {
             createOrderItem($order_id, $item['product_id'], $item['quantity'], $item['price_per_unit']);
+            updateProductStock($item['product_id'], $item['quantity']);
         }
 
         // Commit the transaction
@@ -68,6 +69,26 @@ function createOrderItem($order_id, $product_id, $quantity, $price_per_unit)
     if (!$stmt->execute()) {
         file_put_contents('php://stderr', "Failed to create order item: " . $stmt->error . PHP_EOL);
         throw new Exception("Failed to create order item: " . $stmt->error);
+    }
+
+    $stmt->close();
+}
+
+function updateProductStock($product_id, $quantity)
+{
+    global $conn;
+
+    $stmt = $conn->prepare("UPDATE products SET stock_quantity = stock_quantity - ? WHERE product_id = ?");
+    $stmt->bind_param("ii", $quantity, $product_id);
+
+    if (!$stmt->execute()) {
+        file_put_contents('php://stderr', "Failed to update product stock: " . $stmt->error . PHP_EOL);
+        throw new Exception("Failed to update product stock: " . $stmt->error);
+    }
+
+    // Ensure stock does not go negative
+    if ($stmt->affected_rows === 0) {
+        throw new Exception("Failed to update stock, product ID: $product_id might not exist or have insufficient stock.");
     }
 
     $stmt->close();

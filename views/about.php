@@ -57,7 +57,7 @@ require 'views/partials/header.php'
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center max-w-6xl mx-auto">
                 <div class="rounded-lg overflow-hidden">
-                    <img src="assets/images/new.avif" alt="Our Team" class="w-full h-[300px] object-cover">
+                    <img src="assets/images/team.avif" alt="Our Team" class="w-full h-[300px] object-cover">
                 </div>
                 <div class="space-y-6 px-6">
                     <h2 class="playfair text-3xl font-semibold">Our Team</h2>
@@ -65,11 +65,16 @@ require 'views/partials/header.php'
                         <p>At Alora, we are more than just a team—we're a family of passionate individuals dedicated to redefining beauty and wellness. Each member of our team brings unique expertise, ensuring that every product and service we offer meets the highest standards.</p>
                         <p>From our dedicated specialists to our creative brand strategists and select premium items from designers who craft a seamless and user-friendly platform, every detail at Alora is shaped by the hands and minds of people who genuinely care about your journey to self-care and beauty.</p>
                     </div>
-                    <button class="bg-gray-200 text-black px-8 py-3 rounded-full hover:bg-gray-100 transition-colors">
-                        Contact Us
-                    </button>
+                    <a href="index.php?route=contact" class="inline-block">
+                        <button class="bg-gray-200 text-black px-8 py-3 rounded-full hover:bg-gray-100 transition-colors mt-16">
+                            Contact Us
+                        </button>
+                    </a>
                 </div>
+
+
             </div>
+        </div>
         </div>
     </section>
 

@@ -29,7 +29,7 @@ switch ($route) {
         break;
 
     case 'login':
-        require 'views/login.php';
+        require 'login.php';
         break;
 
     case 'profile':

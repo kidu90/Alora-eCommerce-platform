@@ -8,7 +8,6 @@ function createSubscription($user_id, $plan_id)
     global $conn;
 
     try {
-        // Fetch the plan details from the subscription_plans table
         $stmt = $conn->prepare("SELECT * FROM subscription_plans WHERE plan_id = ?");
         $stmt->bind_param("i", $plan_id);
         $stmt->execute();

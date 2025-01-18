@@ -39,7 +39,6 @@
             console.log('Category data:', categoryData);
 
             try {
-                // Sending POST request to the server
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
@@ -48,8 +47,7 @@
                     body: JSON.stringify(categoryData),
                 });
 
-                // Check if the response was successful
-                if (!response.ok) {
+                 if (!response.ok) {
                     const data = await response.json();
                     throw new Error(data.message || 'Failed to create category');
                 }

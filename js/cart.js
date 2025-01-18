@@ -6,9 +6,8 @@ document.getElementById("checkout-btn").addEventListener("click", async () => {
         return;
     }
 
-    // Prepare order data
     const orderData = {
-        user_id: 1, // Replace with actual logged-in user ID
+        user_id: 1, // Replace with the actual user ID
         shipping_address: shippingAddress,
         order_items: cartItems.map(item => ({
             product_id: item.productId,
@@ -19,7 +18,7 @@ document.getElementById("checkout-btn").addEventListener("click", async () => {
 
     // Send order data to the backend API
     try {
-        const response = await fetch('/path-to-your-api/order-endpoint.php', {
+        const response = await fetch('', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,8 +30,8 @@ document.getElementById("checkout-btn").addEventListener("click", async () => {
 
         if (result.status === 'success') {
             alert("Order placed successfully!");
-            localStorage.removeItem("userCart"); // Clear cart
-            window.location.reload(); // Reload page or redirect
+            localStorage.removeItem("userCart"); 
+            window.location.reload(); 
         } else {
             alert(`Error: ${result.message}`);
         }

@@ -47,7 +47,7 @@ require 'views/partials/header.php'
     <section class="bg-gray-100 py-20">
         <div class="container mx-auto px-6 py-12">
             <h2 class="text-4xl font-bold mb-8 ">SHOP BY CATEGORY</h2>
-            <div class="grid grid-cols-3 gap-5">
+            <div class="grid grid-cols-3 gap-6">
                 <?php
                 $categories = [
                     [
@@ -93,7 +93,9 @@ require 'views/partials/header.php'
                     <a href="index.php?route=shop">
                         <button class="bg-gray-200 text-black px-6 py-2 rounded-lg hover:bg-gray-100">Shop Now</button>
                     </a>
-                    <button class="border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100">Explore</button>
+                    <a href="index.php?route=about">
+                        <button class="border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100">Explore</button>
+                    </a>
                 </div>
             </div>
         </div>
