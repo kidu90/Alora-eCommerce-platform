@@ -1,24 +1,21 @@
 <?php
 require_once '../../dbconnection.php';
 
+// Enable error reporting
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 // Function to get all orders
 function getAllOrders()
 {
     global $conn;
 
     try {
-        // Prepare the query to select all orders
         $stmt = $conn->prepare("SELECT * FROM orders");
-
-        // Execute the query
         $stmt->execute();
-
-        // Get the result
         $result = $stmt->get_result();
 
-        // Check if there are any rows returned
         if ($result->num_rows > 0) {
-            // Fetch all the orders
             $orders = [];
             while ($row = $result->fetch_assoc()) {
                 $orders[] = $row;
@@ -38,7 +35,7 @@ function getAllOrders()
             ];
         }
     } catch (Exception $e) {
-        file_put_contents('php://stderr', "Error: " . $e->getMessage());
+        file_put_contents('php://stderr', "Error: " . $e->getMessage() . "\n");
         return [
             "status" => "error",
             "message" => $e->getMessage()
@@ -52,27 +49,21 @@ function getOrdersByUserId($userId)
     global $conn;
 
     try {
-        // Prepare the query to select orders by user ID
         $stmt = $conn->prepare("SELECT * FROM orders WHERE user_id = ?");
-
-        // Bind the user ID parameter
         $stmt->bind_param("i", $userId);
-
-        // Execute the query
         $stmt->execute();
-
-        // Get the result
         $result = $stmt->get_result();
 
-        // Check if there are any rows returned
         if ($result->num_rows > 0) {
-            // Fetch all the orders for the user
             $orders = [];
             while ($row = $result->fetch_assoc()) {
                 $orders[] = $row;
             }
 
             $stmt->close();
+
+            // Log the orders for debugging
+            //file_put_contents('php://stderr', print_r($orders, true));
 
             return [
                 "status" => "success",
@@ -86,7 +77,7 @@ function getOrdersByUserId($userId)
             ];
         }
     } catch (Exception $e) {
-        file_put_contents('php://stderr', "Error: " . $e->getMessage());
+        file_put_contents('php://stderr', "Error: " . $e->getMessage() . "\n");
         return [
             "status" => "error",
             "message" => $e->getMessage()
@@ -98,12 +89,10 @@ function getOrdersByUserId($userId)
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Check if a user_id parameter is provided
     if (isset($_GET['user_id'])) {
         $userId = (int)$_GET['user_id'];
         $response = getOrdersByUserId($userId);
     } else {
-        // If no user_id is provided, fetch all orders
         $response = getAllOrders();
     }
 } else {

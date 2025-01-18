@@ -11,7 +11,7 @@
             <!-- Account Icon -->
             <?php if (isset($_SESSION['user_id'])): ?>
                 <a href="index.php?route=profile" class="hover:text-gray-600">
-                    <span class="sr-only ">Profile</span>
+                    <span class="sr-only">Profile</span>
                     <img src="assets/images/person.svg" alt="Account" class="h-6 w-6">
                 </a>
             <?php else: ?>
@@ -22,11 +22,7 @@
                 </a>
             <?php endif; ?>
             <!-- Search Icon -->
-            <a href="#" class="hover:text-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-            </a>
+            <?php require 'views/partials/search.php' ?>
             <!-- Cart Icon -->
             <a href="index.php?route=cart" class="hover:text-gray-600">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

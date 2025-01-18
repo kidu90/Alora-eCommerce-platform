@@ -2,32 +2,13 @@
 require_once 'functions.php';
 require_once 'dbconnection.php';
 
-// Ensure the user is authenticated
-isAuthenticated(false, false);
-
-// Get the logged-in user's ID from the session
-$userId = $_SESSION['user_id'] ?? null;
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
     logoutUser();
 }
 
-try {
-    // Fetch orders by user ID
-    if ($userId) {
-        $orders = fetchOrdersByUserId($userId);
-        $subscriptions = fetchSubscriptionsByUserId($userId);  // Fetch subscriptions for the user
-    } else {
-        $orders = [];
-        $subscriptions = [];
-    }
-} catch (Exception $e) {
-    // Handle any errors in fetching orders or subscriptions
-    $orders = [];
-    $subscriptions = [];
-    $errorMessage = $e->getMessage();
-}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,26 +18,17 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alora - Your Profile</title>
     <link href="assets/css/style.css" rel="stylesheet">
+
 </head>
 
 <body class="font-sans bg-primary">
-    <!-- Navigation -->
     <?php require 'views/partials/navbar.php'; ?>
 
-    <!-- Profile Section -->
     <section class="flex items-center justify-center min-h-screen py-12">
         <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
             <h2 class="text-3xl font-bold mb-6 text-center font-secondary">Welcome, <?php echo htmlspecialchars($_SESSION['first_name']); ?></h2>
 
             <h3 class="text-2xl font-bold mb-4">Your Order History</h3>
-
-            <?php if (isset($errorMessage)): ?>
-                <div class="text-red-500 mb-4">
-                    <?php echo htmlspecialchars($errorMessage); ?>
-                </div>
-            <?php endif; ?>
-
-            <!-- Orders Table -->
             <div class="overflow-x-auto mb-8">
                 <table class="w-full text-left border-collapse">
                     <thead>
@@ -66,25 +38,12 @@ try {
                             <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Total Amount</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php if (!empty($orders)): ?>
-                            <?php foreach ($orders as $order): ?>
-                                <tr>
-                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($order['order_id']); ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($order['order_date']); ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($order['total_amount']); ?> USD</td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="3" class="py-2 px-4 text-center text-gray-500">No orders found</td>
-                            </tr>
-                        <?php endif; ?>
+                    <tbody id="orders-tbody">
+                        <!-- Orders will be populated here -->
                     </tbody>
                 </table>
             </div>
 
-            <!-- Subscriptions Table -->
             <h3 class="text-2xl font-bold mb-4">Your Subscription History</h3>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
@@ -98,23 +57,8 @@ try {
                             <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Created At</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php if (!empty($subscriptions)): ?>
-                            <?php foreach ($subscriptions as $subscription): ?>
-                                <tr>
-                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['subscription_id']); ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['plan_id']); ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['start_date']); ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['next_delivery_date']); ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['status']); ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($subscription['created_at']); ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="6" class="py-2 px-4 text-center text-gray-500">No subscriptions found</td>
-                            </tr>
-                        <?php endif; ?>
+                    <tbody id="subscriptions-tbody">
+                        <!-- Subscriptions will be populated here -->
                     </tbody>
                 </table>
             </div>
@@ -128,6 +72,90 @@ try {
     </section>
 
     <?php require 'views/partials/footer.php'; ?>
+
+    <script>
+        // Function to fetch and populate orders
+        async function fetchOrders(userId) {
+            const ordersTableBody = document.getElementById('orders-tbody');
+            try {
+                const response = await fetch(`http://localhost/Alora/api/orders/get_orders.php?user_id=${userId}`);
+                const data = await response.json();
+
+                if (data.status === 'success' && data.orders.length > 0) {
+                    data.orders.forEach(order => {
+                        const row = `
+                            <tr>
+                                <td class="py-2 px-4 border-b">${order.order_id}</td>
+                                <td class="py-2 px-4 border-b">${order.order_date}</td>
+                                <td class="py-2 px-4 border-b">${order.total_amount} USD</td>
+                            </tr>
+                        `;
+                        ordersTableBody.innerHTML += row;
+                    });
+                } else {
+                    ordersTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="3" class="py-2 px-4 text-center text-gray-500">No orders found</td>
+                        </tr>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+                ordersTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="py-2 px-4 text-center text-red-500">Failed to load orders</td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Function to fetch and populate subscriptions
+        async function fetchSubscriptions(userId) {
+            const subscriptionsTableBody = document.getElementById('subscriptions-tbody');
+            try {
+                const response = await fetch(`http://localhost/Alora/api/subs/get_customerSubscription.php?user_id=${userId}`);
+                const data = await response.json();
+
+                if (data.status === 'success' && data.data.length > 0) {
+                    data.data.forEach(subscription => {
+                        const row = `
+                            <tr>
+                                <td class="py-2 px-4 border-b">${subscription.subscription_id}</td>
+                                <td class="py-2 px-4 border-b">${subscription.plan_id}</td>
+                                <td class="py-2 px-4 border-b">${subscription.start_date}</td>
+                                <td class="py-2 px-4 border-b">${subscription.next_delivery_date}</td>
+                                <td class="py-2 px-4 border-b">${subscription.status}</td>
+                                <td class="py-2 px-4 border-b">${subscription.created_at}</td>
+                            </tr>
+                        `;
+                        subscriptionsTableBody.innerHTML += row;
+                    });
+                } else {
+                    subscriptionsTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="py-2 px-4 text-center text-gray-500">No subscriptions found</td>
+                        </tr>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error fetching subscriptions:', error);
+                subscriptionsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="py-2 px-4 text-center text-red-500">Failed to load subscriptions</td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Initialize the page with user-specific data
+        document.addEventListener('DOMContentLoaded', () => {
+            const userId = <?php echo json_encode($_SESSION['user_id'] ?? null); ?>;
+            if (userId) {
+                fetchOrders(userId);
+                fetchSubscriptions(userId);
+            }
+        });
+    </script>
 </body>
 
 </html>

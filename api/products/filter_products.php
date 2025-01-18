@@ -7,10 +7,8 @@ header('Content-Type: application/json');
 // Fetch the filter parameter from the request
 $filter = $_GET['filter'] ?? '';
 
-// Fetch products from the database
 $products = fetchProducts(1, 12)['data'];
 
-// Apply filtering logic
 if ($filter === 'price-low-high') {
     usort($products, fn($a, $b) => $a['price'] - $b['price']); // Sort by price ascending
 } elseif ($filter === 'price-high-low') {
