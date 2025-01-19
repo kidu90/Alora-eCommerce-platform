@@ -15,6 +15,9 @@ $userId = $_SESSION['user_id'] ?? null;
     <title>Subscriptions - Aurora Beauty</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet">
 </head>
 
 <body class="bg-gray-50 font-sans">

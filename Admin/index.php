@@ -43,10 +43,6 @@
                 <?php require '../views/partials/admin_dashboard/edit_product.php'; ?>
             </div>
 
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <?php require '../views/partials/admin_dashboard/delete_product.php'; ?>
-            </div>
-
 
         </div>
 
