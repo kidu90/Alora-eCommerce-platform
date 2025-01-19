@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                             <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Next Delivery</th>
                             <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Status</th>
                             <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Created At</th>
+                            <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Action</th>
                         </tr>
                     </thead>
                     <tbody id="subscriptions-tbody">
@@ -126,6 +127,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                                 <td class="py-2 px-4 border-b">${subscription.next_delivery_date}</td>
                                 <td class="py-2 px-4 border-b">${subscription.status}</td>
                                 <td class="py-2 px-4 border-b">${subscription.created_at}</td>
+                                <td class="py-2 px-4 border-b text-center">
+                                    <button class="bg-red-500 text-black px-4 py-2 rounded-full" onclick="deleteSubscription(${userId}, ${subscription.subscription_id})">
+                                        Delete
+                                    </button>
+                                </td>
                             </tr>
                         `;
                         subscriptionsTableBody.innerHTML += row;
@@ -133,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                 } else {
                     subscriptionsTableBody.innerHTML = `
                         <tr>
-                            <td colspan="6" class="py-2 px-4 text-center text-gray-500">No subscriptions found</td>
+                            <td colspan="7" class="py-2 px-4 text-center text-gray-500">No subscriptions found</td>
                         </tr>
                     `;
                 }
@@ -141,9 +147,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                 console.error('Error fetching subscriptions:', error);
                 subscriptionsTableBody.innerHTML = `
                     <tr>
-                        <td colspan="6" class="py-2 px-4 text-center text-red-500">Failed to load subscriptions</td>
+                        <td colspan="7" class="py-2 px-4 text-center text-red-500">Failed to load subscriptions</td>
                     </tr>
                 `;
+            }
+        }
+
+        // Function to delete a subscription
+        async function deleteSubscription(userId, subscriptionId) {
+            const confirmDelete = confirm("Are you sure you want to delete this subscription?");
+            if (confirmDelete) {
+                try {
+                    const response = await fetch(`http://localhost/Alora/api/subs/delete_customerSubscription.php?user_id=${userId}&subscription_id=${subscriptionId}`, {
+                        method: 'DELETE',
+                    });
+                    const data = await response.json();
+
+                    if (data.status === 'success') {
+                        alert('Subscription deleted successfully');
+                        location.reload(); // Reload the page to update the table
+                    } else {
+                        alert('Failed to delete the subscription');
+                    }
+                } catch (error) {
+                    console.error('Error deleting subscription:', error);
+                    alert('An error occurred while deleting the subscription');
+                }
             }
         }
 
