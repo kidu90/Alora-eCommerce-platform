@@ -82,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         ];
     }
 
-    // Send the response
     echo json_encode($response);
 } else {
     http_response_code(405);

@@ -5,10 +5,7 @@ require_once 'dbconnection.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
     logoutUser();
 }
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alora - Your Profile</title>
     <link href="assets/css/style.css" rel="stylesheet">
-
 </head>
 
 <body class="font-sans bg-primary">
@@ -36,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                             <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Order ID</th>
                             <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Date</th>
                             <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Total Amount</th>
+                            <th class="py-2 px-4 bg-gray-100 font-semibold text-sm text-gray-600 border-b">Action</th>
                         </tr>
                     </thead>
                     <tbody id="orders-tbody">
@@ -89,6 +86,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                                 <td class="py-2 px-4 border-b">${order.order_id}</td>
                                 <td class="py-2 px-4 border-b">${order.order_date}</td>
                                 <td class="py-2 px-4 border-b">${order.total_amount} USD</td>
+                                <td class="py-2 px-4 border-b text-center">
+                                    <button class="bg-red-500 text-black px-4 py-2 rounded-full" onclick="deleteOrder(${order.order_id})">
+                                        Delete
+                                    </button>
+                                </td>
                             </tr>
                         `;
                         ordersTableBody.innerHTML += row;
@@ -96,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                 } else {
                     ordersTableBody.innerHTML = `
                         <tr>
-                            <td colspan="3" class="py-2 px-4 text-center text-gray-500">No orders found</td>
+                            <td colspan="4" class="py-2 px-4 text-center text-gray-500">No orders found</td>
                         </tr>
                     `;
                 }
@@ -104,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                 console.error('Error fetching orders:', error);
                 ordersTableBody.innerHTML = `
                     <tr>
-                        <td colspan="3" class="py-2 px-4 text-center text-red-500">Failed to load orders</td>
+                        <td colspan="4" class="py-2 px-4 text-center text-red-500">Failed to load orders</td>
                     </tr>
                 `;
             }
@@ -128,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                                 <td class="py-2 px-4 border-b">${subscription.status}</td>
                                 <td class="py-2 px-4 border-b">${subscription.created_at}</td>
                                 <td class="py-2 px-4 border-b text-center">
-                                    <button class="bg-red-500 text-black px-4 py-2 rounded-full" onclick="deleteSubscription(${userId}, ${subscription.subscription_id})">
+                                    <button class="bg-red-500 text-black px-4 py-2 rounded-lg" onclick="deleteSubscription(${userId}, ${subscription.subscription_id})">
                                         Delete
                                     </button>
                                 </td>
@@ -150,6 +152,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                         <td colspan="7" class="py-2 px-4 text-center text-red-500">Failed to load subscriptions</td>
                     </tr>
                 `;
+            }
+        }
+
+        // Function to delete an order
+        async function deleteOrder(orderId) {
+            const confirmDelete = confirm("Are you sure you want to delete this order?");
+            if (confirmDelete) {
+                try {
+                    const response = await fetch(`http://localhost/Alora/api/orders/delete_order.php?order_id=${orderId}`, {
+                        method: 'DELETE',
+                    });
+                    const data = await response.json();
+
+                    if (data.status === 'success') {
+                        alert('Order deleted successfully');
+                        location.reload(); // Reload the page to update the table
+                    } else {
+                        alert('Failed to delete the order');
+                    }
+                } catch (error) {
+                    console.error('Error deleting order:', error);
+                    alert('An error occurred while deleting the order');
+                }
             }
         }
 

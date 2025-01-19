@@ -1,6 +1,8 @@
 <?php
 require_once 'dbconnection.php';
 
+$userId = $_SESSION['user_id'] ?? null;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
     logoutUser();
 }
@@ -171,9 +173,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                 return;
             }
 
+            // Get user_id from the PHP session variable
+            const userId = <?php echo $_SESSION['user_id']; ?>;
+
             // Prepare order data
             const orderData = {
-                user_id: 1,
+                user_id: userId, // Use the session user_id
                 shipping_address: shippingAddress,
                 order_items: cartItems.map(item => ({
                     product_id: item.productId,
