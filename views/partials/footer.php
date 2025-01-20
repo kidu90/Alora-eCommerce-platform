@@ -18,24 +18,24 @@
             <div class="w-full md:w-1/4 mb-4 md:mb-0">
                 <h3 class="text-lg font-semibold mb-2">Company</h3>
                 <ul>
-                    <li><a href="#" class="hover:text-gray-300">Shop</a></li>
-                    <li><a href="#" class="hover:text-gray-300">About us</a></li>
+                    <li><a href="index.php?route=shop" class="hover:text-gray-300">Shop</a></li>
+                    <li><a href="index.php?route=about" class="hover:text-gray-300">About us</a></li>
                     <li><a href="#" class="hover:text-gray-300">Privacy and Policy</a></li>
                 </ul>
             </div>
             <div class="w-full md:w-1/4 mb-4 md:mb-0">
                 <h3 class="text-lg font-semibold mb-2">Information</h3>
                 <ul>
-                    <li><a href="#" class="hover:text-gray-300">Home</a></li>
+                    <li><a href="index.php?route=home" class="hover:text-gray-300">Home</a></li>
                     <li><a href="#" class="hover:text-gray-300">FAQ</a></li>
-                    <li><a href="#" class="hover:text-gray-300">Contact</a></li>
+                    <li><a href="index.php?route=contact" class="hover:text-gray-300">Contact</a></li>
                 </ul>
             </div>
             <div class="w-full md:w-1/4 mb-4 md:mb-0">
                 <h3 class="text-lg font-semibold mb-2">Subscription</h3>
                 <ul>
-                    <li><a href="#" class="hover:text-gray-300">Subscription</a></li>
-                    <li><a href="#" class="hover:text-gray-300">Profile</a></li>
+                    <li><a href="index.php?route=subscription" class="hover:text-gray-300">Subscription</a></li>
+                    <li><a href="index.php?route=login" class="hover:text-gray-300">Profile</a></li>
                     <li><a href="#" class="hover:text-gray-300">Cart</a></li>
                 </ul>
             </div>

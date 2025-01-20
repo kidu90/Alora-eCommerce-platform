@@ -52,17 +52,17 @@ require 'views/partials/header.php'
                 $categories = [
                     [
                         'name' => 'Lips',
-                        'url' => '#lips',
+                        'url' => 'index.php?route=shop&category=Lips', // Pass category name as a query parameter
                         'image_url' => 'assets/images/lips-category.png'
                     ],
                     [
                         'name' => 'Eyes',
-                        'url' => '#eyes',
+                        'url' => 'index.php?route=shop&category=Eyes', // Pass category name as a query parameter
                         'image_url' => 'assets/images/eyes-category.png'
                     ],
                     [
                         'name' => 'Face',
-                        'url' => '#face',
+                        'url' => 'index.php?route=shop&category=Face', // Pass category name as a query parameter
                         'image_url' => 'assets/images/skin-category.png'
                     ]
                 ];
@@ -74,6 +74,7 @@ require 'views/partials/header.php'
                     require 'views/partials/category_card.php';
                 }
                 ?>
+
             </div>
 
     </section>

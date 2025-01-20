@@ -37,7 +37,7 @@
             <?php
             require_once 'functions.php';
 
-            $products = fetchProducts(1, 12)['data'];
+            $products = fetchProducts(1, 100)['data'];
             foreach ($products as $item) {
                 $id = $item['product_id'];
                 $image = $item['image_url'];
